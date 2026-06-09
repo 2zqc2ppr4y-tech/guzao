@@ -1,0 +1,131 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+
+BASE_SLIDES = [
+    {
+        "type": "content",
+        "variant": "stats",
+        "title": "平台价值",
+        "facts": [
+            {"value": "18,420", "label": "识别样本", "detail": "演示数据沉淀能力", "accent": "accent_primary"},
+            {"value": "128", "label": "采样点", "detail": "关联本地检测记录", "accent": "accent_secondary"},
+            {"value": "42", "label": "鼓藻类群", "detail": "覆盖常见候选属类", "accent": "accent_primary"},
+            {"value": "12,860", "label": "公开分布", "detail": "连接生态分布数据", "accent": "accent_secondary"},
+        ],
+        "bullets": [
+            "面向水生态监测、科研教学和藻类样本管理。",
+            "把一次性识别结果转化为可查询、可复核、可导出的数据资产。"
+        ],
+    },
+    {
+        "type": "content",
+        "variant": "image-sidebar",
+        "title": "检测工作台",
+        "assets": {"hero_image": "assets/generated/detection-dashboard.png"},
+        "image_side": "left",
+        "sidebar_sections": [
+            {"title": "图像上传", "body": "支持显微图像上传与质量提示。"},
+            {"title": "YOLO11 识别", "body": "输出类别、置信度、检测框和候选排序。"},
+            {"title": "复核归档", "body": "人工确认后同步历史记录、分布图谱和报告。"},
+        ],
+    },
+    {
+        "type": "content",
+        "variant": "image-sidebar",
+        "title": "生态数据",
+        "assets": {"hero_image": "assets/generated/ecology-distribution.png"},
+        "image_side": "right",
+        "sidebar_sections": [
+            {"title": "分布图谱", "body": "按物种、来源、时间和水体类型筛选坐标记录。"},
+            {"title": "物种档案", "body": "整合属名、代表图像、公开记录和本地采样。"},
+            {"title": "报告导出", "body": "输出可复核、可归档的检测报告。"},
+        ],
+    },
+    {
+        "type": "content",
+        "variant": "timeline",
+        "title": "下一步规划",
+        "milestones": [
+            {"label": "近期", "title": "夯实识别", "body": "完善 YOLO11 权重接入、低置信度复核和报告导出。"},
+            {"label": "中期", "title": "扩展图谱", "body": "丰富真实鼓藻图像库，融合公开分布与本地采样。"},
+            {"label": "长期", "title": "生态分析", "body": "结合时空趋势、理化指标和复核数据服务监测项目。"},
+        ],
+    },
+]
+
+
+STYLES = {
+    "a": {
+        "name": "清透水生态科研风",
+        "output": "outline_style_a.json",
+        "preset": "arctic-minimal",
+        "hero": "assets/style_samples/style-a-aqua-lab.png",
+        "title_layout": "light-atlas",
+        "header_mode": "lab-clean",
+        "summary": "亮白 + 浅青绿，像科研平台发布页，适合老师/评委快速阅读。",
+    },
+    "b": {
+        "name": "绿色科技路演风",
+        "output": "outline_style_b.json",
+        "preset": "midnight-neon",
+        "hero": "assets/style_samples/style-b-green-roadshow.png",
+        "title_layout": "poster",
+        "header_mode": "bar",
+        "summary": "更接近你给的模板，亮青绿高光、强视觉冲击、适合比赛路演。",
+    },
+    "c": {
+        "name": "白绿科研数据风",
+        "output": "outline_style_c.json",
+        "preset": "forest-research",
+        "hero": "assets/style_samples/style-c-white-research.png",
+        "title_layout": "masthead",
+        "header_mode": "lab-clean",
+        "summary": "白绿报告感，数据层级清楚，适合正式答辩和项目说明。",
+    },
+}
+
+
+def make_outline(style_key: str, spec: dict) -> dict:
+    return {
+        "title": f"鼓藻鉴析｜{spec['name']}",
+        "subtitle": "基于 YOLO11 的鼓藻智能识别与生态分析平台",
+        "deck_style": {
+            "font_pair": "clean_modern_v1",
+            "visual_density": "medium",
+            "header_mode": spec["header_mode"],
+            "title_layout": spec["title_layout"],
+            "title_motif": "network",
+            "section_motif": "rail-dots",
+            "timeline_mode": "bands",
+            "stats_mode": "tiles",
+            "footer_mode": "source-line",
+            "summary_callout_mode": "lab-box",
+            "footer_page_numbers": False,
+        },
+        "slides": [
+            {
+                "type": "title",
+                "title": "鼓藻鉴析",
+                "subtitle": f"{spec['name']}\n基于 YOLO11 的鼓藻智能识别与生态分析平台",
+                "background_image": spec["hero"],
+                "assets": {"hero_image": spec["hero"]},
+                "footer": spec["summary"],
+            },
+            *BASE_SLIDES,
+        ],
+    }
+
+
+def main() -> None:
+    out_dir = Path("ppt_deck")
+    for key, spec in STYLES.items():
+        path = out_dir / spec["output"]
+        path.write_text(json.dumps(make_outline(key, spec), ensure_ascii=False, indent=2), encoding="utf-8")
+        print(path)
+
+
+if __name__ == "__main__":
+    main()

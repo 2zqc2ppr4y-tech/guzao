@@ -1,0 +1,42 @@
+{
+  "slide": 11,
+  "title": "作品完成度与真实运行证据",
+  "prompt": "# Codex PPT Slide Image Prompt\n\n## Canvas\n{\n  \"type\": \"16:9 full-slide PowerPoint image\",\n  \"language\": \"Chinese\",\n  \"slide_number\": 11,\n  \"render_slide_number\": false\n}\n\n## Deck Goal\n生成一套面向比赛初评/答辩的项目 PPT，证明“鼓藻鉴析——基于 YOLO11 的鼓藻智能识别与分析平台”具备明确需求、完整作品设计、可运行功能、创新价值、应用场景和资料完整度。真实网站截图位置先留空白占位，其他页面先完成。\n\n## Required Background\n{\n  \"deck_context\": {\n    \"source_summary\": \"项目采用 React + Vite + Tailwind CSS 前端和 Flask + SQLite 后端，围绕 YOLO11 鼓藻显微图像识别，扩展了批量分析、物种档案、分布图谱、数据中心、报告导出和复核归档。\",\n    \"core_claim\": \"鼓藻鉴析不是单一识别模型，而是把显微图像识别、人工复核、数据归档、报告输出和生态分析串成可运行的科研辅助平台。\",\n    \"competition_requirements\": [\n      \"需求痛点\",\n      \"作品设计和制作\",\n      \"功能展示\",\n      \"创新点\",\n      \"应用场景\",\n      \"知识产权与合规\",\n      \"竞品分析\",\n      \"团队介绍\",\n      \"视频展示计划\"\n    ],\n    \"known_evidence\": {\n      \"records\": 45,\n      \"sample_records\": 45,\n      \"distribution_records\": 89,\n      \"desmid_genera\": 35,\n      \"review_records\": 7,\n      \"users\": 3\n    },\n    \"canonical_terms\": [\n      \"鼓藻鉴析\",\n      \"YOLO11\",\n      \"候选排序\",\n      \"置信度\",\n      \"人工复核\",\n      \"样本归档\",\n      \"分布图谱\",\n      \"报告导出\",\n      \"科研辅助参考\"\n    ]\n  }\n}\n\n## Global Style\n{\n  \"name\": \"浅色水生态科研竞赛风\",\n  \"visual_direction\": \"统一浅色科研风，白色与浅水青画布，显微镜视野、细网格、水波纹理和鼓藻形态作为背景语言；少量深水青标题条和水光青强调，不使用整页深色背景。\",\n  \"color_palette\": \"white, pale aqua #EAFBFA, soft water cyan #DDF7FF, deep water cyan #0B3B4A, scientific teal #0F766E, aqua #2DD4BF, small warm gold #F5C542\",\n  \"typography\": \"中文标题大而稳，深水青粗体；正文短句清晰，避免过密；小标签使用紧凑无衬线风格。\",\n  \"texture_and_finish\": \"light microscopy texture, fine grid, subtle water caustics, translucent glass panels, restrained competition-deck polish\",\n  \"card_stacking_rule\": \"Only use subtle 2-3 layer information-card stacking on Slide 4, Slide 8, Slide 10, and Slide 12. Other slides should use clean diagrams, timelines, metrics, or text-image layouts.\",\n  \"screenshot_placeholder_rule\": \"For places that need real website screenshots, render clean empty placeholder panels labeled exactly “网站实机截图占位”. Do not invent, hallucinate, or redraw website screenshots.\"\n}\n\n## Input Images\n\n- Image 1: C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png — approved sample slide style reference; match style only; do not copy layout unless the slide role needs a feature-page composition\n\n\n## Slide\n{\n  \"number\": 11,\n  \"title\": \"作品完成度与真实运行证据\",\n  \"role\": \"data evidence\",\n  \"intent\": \"用真实数据和接口清单证明作品不是空概念。\"\n}\n\n## Text\n{\n  \"title\": \"作品完成度与真实运行证据\",\n  \"key_points\": [\n    \"前后端已整合：React/Vite/Tailwind 前端，Flask/SQLite 后端\",\n    \"接口覆盖：认证、首页看板、检测、批量、历史、统计、报告、分布同步\",\n    \"演示数据库：识别记录 45 条、样本记录 45 条、分布记录 89 条\",\n    \"复核记录 7 条、鼓藻属名录 35 条、用户 3 个\"\n  ],\n  \"speaker_focus\": null\n}\n\n## Layout\n{\n  \"composition\": \"top evidence headline; middle metric strip; bottom API coverage checklist in two rows\",\n  \"content_zones\": \"title, metrics, API checklist\",\n  \"spacing\": \"data evidence, not decorative\"\n}\n\n## Visual Elements\n{\n  \"main_visual\": \"metric strip with six real numbers\",\n  \"supporting_elements\": \"API chips and completion badge\"\n}\n\n## Constraints\n[\n  \"Use only the listed real numbers.\",\n  \"No invented accuracy claims.\"\n]\n\n## Style Reference Rule\nUse Image 1 as the approved sample-slide style reference. Match its palette, typography mood, density, texture, and overall visual identity. Do not copy its exact layout unless this slide's layout explicitly asks for it.\n\n## Input Image Handling Rules\nFor any input image marked as a strict input asset, include it visibly and preserve its content. Do not redraw, replace, relabel, or invent a similar figure. Scale and crop only as needed for composition while keeping the important labels, arrows, data, and relationships recognizable.\n\n## Universal Constraints\n- The final image itself must contain the title and key points.\n- Render Chinese text exactly and legibly; avoid garbled characters.\n- Keep the confirmed deck style consistent while varying layout by slide role.\n- No watermark, unrelated logo, or extra slide number.\n",
+  "out": "slide_11.png",
+  "input_images": [
+    {
+      "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+      "role": "approved sample slide style reference",
+      "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+    }
+  ],
+  "requires_context_images": true,
+  "expected_backend": "built-in image tool",
+  "sample_generation_method": {
+    "backend_used": "built-in image tool",
+    "tool_name": "image_gen",
+    "mode": "generate_then_edit",
+    "prompt_source": "prompts/slide_08_sample_prompt.md",
+    "size": "16:9 landscape, built-in default",
+    "quality": "built-in default",
+    "approved_sample_path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+    "input_context_preparation": "view_image was used for the light style board, recognition visual, and YOLO detection result before built-in generation",
+    "handoff_rule": "Subagents must use this same built-in image tool path and return a blocker if unavailable."
+  },
+  "generation_contract": {
+    "must_use_selected_image_backend": true,
+    "must_match_sample_generation_method": true,
+    "forbidden_final_image_methods": [
+      "local drawing/rendering scripts",
+      "Pillow-generated slides",
+      "SVG/HTML/CSS/canvas screenshots",
+      "python-pptx/PptxGenJS/native PPT layout screenshots",
+      "manually composited text/image overlays"
+    ],
+    "must_return": [
+      "backend_used",
+      "selected_source",
+      "qa_note"
+    ]
+  }
+}

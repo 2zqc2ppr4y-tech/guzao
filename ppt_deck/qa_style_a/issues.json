@@ -1,0 +1,218 @@
+{
+  "slide-02": {
+    "shape-030": {
+      "name": "Codex Sample Nav Text \u80cc\u666f",
+      "text": "\u80cc\u666f",
+      "bounds_in": {
+        "x": 5.32,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-031": {
+      "name": "Codex Sample Nav Text \u80fd\u529b",
+      "text": "\u80fd\u529b",
+      "bounds_in": {
+        "x": 6.37,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-032": {
+      "name": "Codex Sample Nav Text \u6570\u636e",
+      "text": "\u6570\u636e",
+      "bounds_in": {
+        "x": 7.42,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-033": {
+      "name": "Codex Sample Nav Text \u89c4\u5212",
+      "text": "\u89c4\u5212",
+      "bounds_in": {
+        "x": 8.47,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    }
+  },
+  "slide-03": {
+    "shape-020": {
+      "name": "Codex Sample Nav Text \u80cc\u666f",
+      "text": "\u80cc\u666f",
+      "bounds_in": {
+        "x": 5.32,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-022": {
+      "name": "Codex Sample Nav Text \u80fd\u529b",
+      "text": "\u80fd\u529b",
+      "bounds_in": {
+        "x": 6.37,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-023": {
+      "name": "Codex Sample Nav Text \u6570\u636e",
+      "text": "\u6570\u636e",
+      "bounds_in": {
+        "x": 7.42,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-024": {
+      "name": "Codex Sample Nav Text \u89c4\u5212",
+      "text": "\u89c4\u5212",
+      "bounds_in": {
+        "x": 8.47,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    }
+  },
+  "slide-04": {
+    "shape-020": {
+      "name": "Codex Sample Nav Text \u80cc\u666f",
+      "text": "\u80cc\u666f",
+      "bounds_in": {
+        "x": 5.32,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-021": {
+      "name": "Codex Sample Nav Text \u80fd\u529b",
+      "text": "\u80fd\u529b",
+      "bounds_in": {
+        "x": 6.37,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-023": {
+      "name": "Codex Sample Nav Text \u6570\u636e",
+      "text": "\u6570\u636e",
+      "bounds_in": {
+        "x": 7.42,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-024": {
+      "name": "Codex Sample Nav Text \u89c4\u5212",
+      "text": "\u89c4\u5212",
+      "bounds_in": {
+        "x": 8.47,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    }
+  },
+  "slide-05": {
+    "shape-024": {
+      "name": "Codex Sample Nav Text \u80cc\u666f",
+      "text": "\u80cc\u666f",
+      "bounds_in": {
+        "x": 5.32,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-025": {
+      "name": "Codex Sample Nav Text \u80fd\u529b",
+      "text": "\u80fd\u529b",
+      "bounds_in": {
+        "x": 6.37,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-026": {
+      "name": "Codex Sample Nav Text \u6570\u636e",
+      "text": "\u6570\u636e",
+      "bounds_in": {
+        "x": 7.42,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    },
+    "shape-028": {
+      "name": "Codex Sample Nav Text \u89c4\u5212",
+      "text": "\u89c4\u5212",
+      "bounds_in": {
+        "x": 8.47,
+        "y": 0.705,
+        "w": 0.97,
+        "h": 0.15
+      },
+      "overflow": {
+        "overflow_inches": 0.126
+      }
+    }
+  }
+}

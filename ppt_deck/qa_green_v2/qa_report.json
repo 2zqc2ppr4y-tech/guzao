@@ -1,0 +1,169 @@
+{
+  "input": "C:\\Users\\\u5b59\u9e4f\u6dc7\\Desktop\\guzaoshibie\\\u9f13\u85fb\u9274\u6790-\u7eff\u8272\u79d1\u6280\u611f\u5927\u6539\u7248.pptx",
+  "outdir": "C:\\Users\\\u5b59\u9e4f\u6dc7\\Desktop\\guzaoshibie\\ppt_deck\\qa_green_v2",
+  "style_preset": "midnight-neon",
+  "max_loops": 1,
+  "overflow_count": 0,
+  "overlap_count": 0,
+  "placeholder_hits": [],
+  "issue_slide_count": 0,
+  "issue_shape_count": 0,
+  "geometry_violations": [
+    {
+      "type": "empty_ratio_too_high",
+      "shape_ids": [],
+      "severity": "warning",
+      "delta_inches": 0.1409,
+      "suggested_fix": "Increase purposeful visual structure to reduce dead zones.",
+      "slide_type": "content",
+      "effective_max_empty_ratio": 0.56,
+      "slide_index": 0
+    },
+    {
+      "type": "margin_bottom",
+      "shape_ids": [
+        "shape-4"
+      ],
+      "severity": "warning",
+      "delta_inches": 0.12,
+      "suggested_fix": "Raise card or reduce height to preserve footer breathing room.",
+      "slide_index": 5
+    },
+    {
+      "type": "density_too_high",
+      "shape_ids": [],
+      "severity": "warning",
+      "delta_inches": 0.0606,
+      "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+      "slide_type": "content",
+      "visual_density_score": 0.9006,
+      "slide_index": 6
+    },
+    {
+      "type": "margin_bottom",
+      "shape_ids": [
+        "shape-4"
+      ],
+      "severity": "warning",
+      "delta_inches": 0.12,
+      "suggested_fix": "Raise card or reduce height to preserve footer breathing room.",
+      "slide_index": 8
+    },
+    {
+      "type": "margin_bottom",
+      "shape_ids": [
+        "shape-4"
+      ],
+      "severity": "warning",
+      "delta_inches": 0.12,
+      "suggested_fix": "Raise card or reduce height to preserve footer breathing room.",
+      "slide_index": 12
+    },
+    {
+      "type": "empty_ratio_too_high",
+      "shape_ids": [],
+      "severity": "warning",
+      "delta_inches": 0.1138,
+      "suggested_fix": "Increase purposeful visual structure to reduce dead zones.",
+      "slide_type": "content",
+      "effective_max_empty_ratio": 0.56,
+      "slide_index": 14
+    }
+  ],
+  "geometry_error_count": 0,
+  "geometry_warning_count": 6,
+  "visual_warning_count": 0,
+  "visual_info_count": 0,
+  "visual_report": "C:\\Users\\\u5b59\u9e4f\u6dc7\\Desktop\\guzaoshibie\\ppt_deck\\qa_green_v2\\visual_qa.json",
+  "visual_rc": 0,
+  "render_rc": 0,
+  "render_stdout_tail": "",
+  "rendered_slide_count": 0,
+  "expected_slide_count": 17,
+  "visual_review_warning_count": 0,
+  "visual_review_info_count": 0,
+  "visual_review_report": "",
+  "visual_review_markdown": "",
+  "visual_review_contact_sheet": "",
+  "visual_review_rc": 0,
+  "visual_review_stdout_tail": "",
+  "design_error_count": 0,
+  "design_warning_count": 0,
+  "design_report": "C:\\Users\\\u5b59\u9e4f\u6dc7\\Desktop\\guzaoshibie\\ppt_deck\\qa_green_v2\\design_rules.json",
+  "design_rc": 0,
+  "density_score_by_slide": [
+    {
+      "slide_index": 0,
+      "density_score": 0.2991
+    },
+    {
+      "slide_index": 1,
+      "density_score": 0.8369
+    },
+    {
+      "slide_index": 2,
+      "density_score": 0.5068
+    },
+    {
+      "slide_index": 3,
+      "density_score": 0.7771
+    },
+    {
+      "slide_index": 4,
+      "density_score": 0.5068
+    },
+    {
+      "slide_index": 5,
+      "density_score": 0.7757
+    },
+    {
+      "slide_index": 6,
+      "density_score": 0.9006
+    },
+    {
+      "slide_index": 7,
+      "density_score": 0.5591
+    },
+    {
+      "slide_index": 8,
+      "density_score": 0.7757
+    },
+    {
+      "slide_index": 9,
+      "density_score": 0.6863
+    },
+    {
+      "slide_index": 10,
+      "density_score": 0.5581
+    },
+    {
+      "slide_index": 11,
+      "density_score": 0.5068
+    },
+    {
+      "slide_index": 12,
+      "density_score": 0.7757
+    },
+    {
+      "slide_index": 13,
+      "density_score": 0.5069
+    },
+    {
+      "slide_index": 14,
+      "density_score": 0.3262
+    },
+    {
+      "slide_index": 15,
+      "density_score": 0.6646
+    },
+    {
+      "slide_index": 16,
+      "density_score": 0.5068
+    }
+  ],
+  "font_families": [
+    "Helvetica Neue"
+  ],
+  "manual_review_passed": true,
+  "strict_geometry": true
+}

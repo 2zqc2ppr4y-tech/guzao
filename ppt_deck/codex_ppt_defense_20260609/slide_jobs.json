@@ -1,0 +1,622 @@
+{
+  "run_status": "slides_recorded",
+  "deck_name": "codex_ppt_defense_20260609",
+  "selected_backend": "built-in image tool",
+  "sample_generation_method": {
+    "backend_used": "built-in image tool",
+    "tool_name": "image_gen",
+    "mode": "generate_then_edit",
+    "prompt_source": "prompts/slide_08_sample_prompt.md",
+    "size": "16:9 landscape, built-in default",
+    "quality": "built-in default",
+    "approved_sample_path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+    "input_context_preparation": "view_image was used for the light style board, recognition visual, and YOLO detection result before built-in generation",
+    "handoff_rule": "Subagents must use this same built-in image tool path and return a blocker if unavailable."
+  },
+  "max_concurrent_slides": 6,
+  "slides": [
+    {
+      "slide_id": "slide_01",
+      "number": 1,
+      "title": "鼓藻鉴析",
+      "job": "prompts/slide_01.json",
+      "out": "origin_image/slide_01.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        },
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/assets/generated_style/cover_bg_light_desmid_ai.png",
+          "role": "strict input asset; primary light cover background",
+          "fidelity": "preserve the light background style, microscope lens, desmid cluster, and clean left title space"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_01.json",
+        "prompt_sha256": "51f4ce169fce99dcd4a5c1b758c3843e86155f138051039324042831954f144f",
+        "dispatched_at": "2026-06-09T15:12:42Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a282e081a68819baf19f7b651fe045c.png",
+        "selected_source_sha256": "c49a73af56ffba45ecc0eb179d358d9836b5d0e561e0fbc642507cd142c827d3",
+        "final_image": "origin_image/slide_01.png",
+        "final_image_sha256": "c49a73af56ffba45ecc0eb179d358d9836b5d0e561e0fbc642507cd142c827d3",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Cover text readable; unified light scientific style matches the approved sample.",
+        "recorded_at": "2026-06-09T15:17:31Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_02",
+      "number": 2,
+      "title": "需求痛点",
+      "job": "prompts/slide_02.json",
+      "out": "origin_image/slide_02.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        },
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/frontend/src/assets/cosmarium-reference.png",
+          "role": "strict input asset; desmid reference image for morphology and recognition difficulty",
+          "fidelity": "preserve the desmid visual content"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_02.json",
+        "prompt_sha256": "36452f1a267366370060587b1ba59dea02d2760eca8d153e689eed5299899b4b",
+        "dispatched_at": "2026-06-09T15:12:42Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a282f314284819b80f6caca9e3638d1.png",
+        "selected_source_sha256": "00805a179a9328aecf921bb5be2d650599f1b5962effa97eea4f0b8a3425e495",
+        "final_image": "origin_image/slide_02.png",
+        "final_image_sha256": "00805a179a9328aecf921bb5be2d650599f1b5962effa97eea4f0b8a3425e495",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Problem slide content matches the project; minor inherited tab text accepted for later QA if needed.",
+        "recorded_at": "2026-06-09T15:27:26Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_03",
+      "number": 3,
+      "title": "用户与应用场景",
+      "job": "prompts/slide_03.json",
+      "out": "origin_image/slide_03.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_03.json",
+        "prompt_sha256": "dd9df23dba664bf6b20cddae3c3532e1b6e8f036296f7df86c45003e52a339dc",
+        "dispatched_at": "2026-06-09T15:12:43Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a2831770c7c819ba37be6b2ac3f1f4c.png",
+        "selected_source_sha256": "b042019dfb786ae4a5e2f10f6df32951467ab6ce4437b6525a744a673bbd100e",
+        "final_image": "origin_image/slide_03.png",
+        "final_image_sha256": "b042019dfb786ae4a5e2f10f6df32951467ab6ce4437b6525a744a673bbd100e",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Application scenario slide text readable; light style matches sample.",
+        "recorded_at": "2026-06-09T15:33:42Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_04",
+      "number": 4,
+      "title": "竞品与现有方案分析",
+      "job": "prompts/slide_04.json",
+      "out": "origin_image/slide_04.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_04.json",
+        "prompt_sha256": "0c2bf3ca441302b630b47826a8a2dfeaf75dcdde0c2dd9e5aa1cb06be0bc7ebd",
+        "dispatched_at": "2026-06-09T15:12:43Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a28335b9be8819b845792ad54e10dae.png",
+        "selected_source_sha256": "5c3e91fef82964b152a634a2458de4ab7cc7ef5afeffa1a18987c624bb551b3f",
+        "final_image": "origin_image/slide_04.png",
+        "final_image_sha256": "5c3e91fef82964b152a634a2458de4ab7cc7ef5afeffa1a18987c624bb551b3f",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Comparison slide readable; subtle stacked cards used appropriately.",
+        "recorded_at": "2026-06-09T15:40:27Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_05",
+      "number": 5,
+      "title": "作品定位与总体设计",
+      "job": "prompts/slide_05.json",
+      "out": "origin_image/slide_05.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        },
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/assets/generated_style/content_bg_light_microscopy.png",
+          "role": "strict input asset; light inner slide background",
+          "fidelity": "preserve the pale aqua background style"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_05.json",
+        "prompt_sha256": "844504dbf1edf4e3e45781bbc2bb433c54cf8e0c1644befcdcbb04443558d85d",
+        "dispatched_at": "2026-06-09T15:12:43Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a2834d90d1c819ba5e46d55565884be.png",
+        "selected_source_sha256": "d02863a15c5b6f0f58f7bf695e8f2c52890be9d47adc2403101d613f6123f771",
+        "final_image": "origin_image/slide_05.png",
+        "final_image_sha256": "d02863a15c5b6f0f58f7bf695e8f2c52890be9d47adc2403101d613f6123f771",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Design positioning slide includes an empty website screenshot placeholder as requested.",
+        "recorded_at": "2026-06-09T15:46:48Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_06",
+      "number": 6,
+      "title": "作品制作与技术路线",
+      "job": "prompts/slide_06.json",
+      "out": "origin_image/slide_06.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_06.json",
+        "prompt_sha256": "99f8626114df9e990f09d0b3cdfcc8d9c2d1c6c71d8298da4da0dbcd49cda6ee",
+        "dispatched_at": "2026-06-09T15:12:43Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a28369a305c819bb10fb8b081138e09.png",
+        "selected_source_sha256": "6bacc1883270b355e7723136bc28a538ca76552cc0b984e8daf483bece1bf6ce",
+        "final_image": "origin_image/slide_06.png",
+        "final_image_sha256": "6bacc1883270b355e7723136bc28a538ca76552cc0b984e8daf483bece1bf6ce",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Technical route labels readable; light style matches sample.",
+        "recorded_at": "2026-06-09T15:54:26Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_07",
+      "number": 7,
+      "title": "系统架构与数据闭环",
+      "job": "prompts/slide_07.json",
+      "out": "origin_image/slide_07.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_07.json",
+        "prompt_sha256": "f250040fafe1a2239221a074befeed3a4ecb252d43b0515aeff4ad15dfd37f8a",
+        "dispatched_at": "2026-06-09T15:12:44Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a28384b16f4819b8492459e90304df4.png",
+        "selected_source_sha256": "6810628e3749cbf2f927fb3f0a0ccd062bc5d155d4505e05134a9f9916d2a3c9",
+        "final_image": "origin_image/slide_07.png",
+        "final_image_sha256": "6810628e3749cbf2f927fb3f0a0ccd062bc5d155d4505e05134a9f9916d2a3c9",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Architecture layers readable; data loop visible and consistent with sample style.",
+        "recorded_at": "2026-06-09T16:01:11Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_08",
+      "number": 8,
+      "title": "单张图像智能识别",
+      "job": "prompts/slide_08.json",
+      "out": "origin_image/slide_08.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "accepted",
+      "dispatch": null,
+      "result": {
+        "final_image": "origin_image/slide_08.png",
+        "accepted_sample": true
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_09",
+      "number": 9,
+      "title": "批量分析与报告输出",
+      "job": "prompts/slide_09.json",
+      "out": "origin_image/slide_09.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_09.json",
+        "prompt_sha256": "07d27f84bc2e01cf6566a5830a545afd4b9acb7e2ecffc988088da0b478c14dd",
+        "dispatched_at": "2026-06-09T15:12:44Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a28397967f8819b9ffc0d583fe3adee.png",
+        "selected_source_sha256": "4a8001ff63f7c9ae16a169eaf07ef220dbe719fcd54df6378218de755e69931a",
+        "final_image": "origin_image/slide_09.png",
+        "final_image_sha256": "4a8001ff63f7c9ae16a169eaf07ef220dbe719fcd54df6378218de755e69931a",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Batch/report slide keeps website screenshot area as a blank placeholder; text readable.",
+        "recorded_at": "2026-06-09T16:06:22Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_10",
+      "number": 10,
+      "title": "数据中心、图谱与生态分析",
+      "job": "prompts/slide_10.json",
+      "out": "origin_image/slide_10.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_10.json",
+        "prompt_sha256": "882472167ac8a0400dfb33b0140fb5584b14e561781566fc4ead1c87fc24ab2b",
+        "dispatched_at": "2026-06-09T15:12:44Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a283b32b748819ba28396a75571efc9.png",
+        "selected_source_sha256": "36d472c6886e73db038f096b123c516d5cd2a5d36dd37ca49aa544ffe492d4f6",
+        "final_image": "origin_image/slide_10.png",
+        "final_image_sha256": "36d472c6886e73db038f096b123c516d5cd2a5d36dd37ca49aa544ffe492d4f6",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Data/map slide keeps two website screenshot placeholders blank; metrics are visible.",
+        "recorded_at": "2026-06-09T16:13:37Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_11",
+      "number": 11,
+      "title": "作品完成度与真实运行证据",
+      "job": "prompts/slide_11.json",
+      "out": "origin_image/slide_11.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_11.json",
+        "prompt_sha256": "18d857eb7edf3a036bafd83ccceb7b9e48ee85b2ed208b4efdbabff3c3ad3e46",
+        "dispatched_at": "2026-06-09T15:12:44Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a283d156b0c819ba7c4f43d0020abeb.png",
+        "selected_source_sha256": "69c873251d16c2019bca622de8f148f6b865a13e3c67bf3a7653680630c87262",
+        "final_image": "origin_image/slide_11.png",
+        "final_image_sha256": "69c873251d16c2019bca622de8f148f6b865a13e3c67bf3a7653680630c87262",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Evidence slide uses only known real counts; text readable.",
+        "recorded_at": "2026-06-09T16:23:18Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_12",
+      "number": 12,
+      "title": "创新点",
+      "job": "prompts/slide_12.json",
+      "out": "origin_image/slide_12.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_12.json",
+        "prompt_sha256": "7be8cc8be86fea7de17164362928e4c87292e2b7ca0696440c4aff0a8e45ea63",
+        "dispatched_at": "2026-06-09T15:12:45Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_087522e2e43f5def016a283f4b7364819b800ab57a5508cdbc.png",
+        "selected_source_sha256": "c8ef7c660dc76d5cf6c5fea5e57020533a0247ba89034d916d5f0f286bc03892",
+        "final_image": "origin_image/slide_12.png",
+        "final_image_sha256": "c8ef7c660dc76d5cf6c5fea5e57020533a0247ba89034d916d5f0f286bc03892",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Innovation slide uses restrained stacked cards; text readable.",
+        "recorded_at": "2026-06-09T16:31:40Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_13",
+      "number": 13,
+      "title": "知识产权与合规说明",
+      "job": "prompts/slide_13.json",
+      "out": "origin_image/slide_13.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_13.json",
+        "prompt_sha256": "9ccb2a743fc73601298fb147c3bc05b3a7cb192423d0843f7b789e3efa95fe57",
+        "dispatched_at": "2026-06-09T15:12:45Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_0270bfe617708b2a016a2842ca6f0c8195896b58dca2c731a4.png",
+        "selected_source_sha256": "a1d9f771cdd087c5782e995914f870dde43b6093ad9fb3658cef5f41c8875590",
+        "final_image": "origin_image/slide_13.png",
+        "final_image_sha256": "a1d9f771cdd087c5782e995914f870dde43b6093ad9fb3658cef5f41c8875590",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Light teal compliance slide; text is readable; no fake screenshots; style matches the approved deck direction.",
+        "recorded_at": "2026-06-09T16:45:21Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_14",
+      "number": 14,
+      "title": "团队介绍与视频展示计划",
+      "job": "prompts/slide_14.json",
+      "out": "origin_image/slide_14.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_14.json",
+        "prompt_sha256": "8013f7c6c8aa65f8497f2b96cabffb70cf4c8ae1b01b72b8bb70727e3bd82829",
+        "dispatched_at": "2026-06-09T15:12:45Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_0270bfe617708b2a016a28433779e08195b9aee7865467da3f.png",
+        "selected_source_sha256": "147fc7075237b34324f02365b924c8159a4c73831714d8974173fc41863d303a",
+        "final_image": "origin_image/slide_14.png",
+        "final_image_sha256": "147fc7075237b34324f02365b924c8159a4c73831714d8974173fc41863d303a",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Team role matrix and video storyboard are readable; no invented names; uses abstract demo frames instead of fake screenshots.",
+        "recorded_at": "2026-06-09T16:47:05Z"
+      },
+      "blocker": null
+    },
+    {
+      "slide_id": "slide_15",
+      "number": 15,
+      "title": "总结与未来规划",
+      "job": "prompts/slide_15.json",
+      "out": "origin_image/slide_15.png",
+      "input_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+          "role": "approved sample slide style reference",
+          "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+        },
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/assets/generated_style/closing_bg_light_desmid.png",
+          "role": "strict input asset; light closing background",
+          "fidelity": "preserve the light closing background and text space"
+        }
+      ],
+      "requires_context_images": true,
+      "status": "recorded",
+      "dispatch": {
+        "agent_id": "main-agent",
+        "agent_nickname": "Codex main sequential generator",
+        "prompt": "prompts/slide_15.json",
+        "prompt_sha256": "6404365e9e1492aa0d467c6431a10cec6c7a09c867516faabf6052f798e22f53",
+        "dispatched_at": "2026-06-09T15:12:45Z"
+      },
+      "result": {
+        "agent_id": "main-agent",
+        "backend_used": "built-in image tool",
+        "selected_source": "C:\\Users\\孙鹏淇\\.codex\\generated_images\\019ea88f-213b-75d3-aee4-2f7454682e2a\\ig_0270bfe617708b2a016a2843a9793481959e28631455980b3e.png",
+        "selected_source_sha256": "5df2c5bd609f9590143022ba7a3aa9e0fe3b1999e98f507728772c3f83b0cd4a",
+        "final_image": "origin_image/slide_15.png",
+        "final_image_sha256": "5df2c5bd609f9590143022ba7a3aa9e0fe3b1999e98f507728772c3f83b0cd4a",
+        "expected_backend": "built-in image tool",
+        "expected_backend_labels": [
+          "built-in image tool",
+          "image_gen"
+        ],
+        "sample_generation_method_matched": true,
+        "qa_note": "Closing roadmap slide is readable; current loop and near/mid/long-term plan align with outline; style remains light teal scientific.",
+        "recorded_at": "2026-06-09T16:48:51Z"
+      },
+      "blocker": null
+    }
+  ],
+  "updated_at": "2026-06-09T16:48:51Z"
+}

@@ -1,0 +1,435 @@
+{
+  "title": "鼓藻鉴析",
+  "subtitle": "基于 YOLO11 的鼓藻智能识别与生态分析平台",
+  "deck_style": {
+    "font_pair": "clean_modern_v1",
+    "visual_density": "high",
+    "header_mode": "bar",
+    "title_layout": "command-center",
+    "title_motif": "network",
+    "section_motif": "rail-dots",
+    "timeline_mode": "bands",
+    "stats_mode": "feature-left",
+    "footer_mode": "source-line",
+    "footer_page_numbers": true
+  },
+  "slides": [
+    {
+      "type": "title",
+      "title": "鼓藻鉴析",
+      "subtitle": "面向水生态监测的鼓藻智能识别与鉴析平台\nYOLO11 · 显微图像识别 · 记录归档 · 生态分析",
+      "assets": {
+        "hero_image": "assets/desmid-hero.png"
+      },
+      "footer": "参照绿色科技感模板视觉：深色科技底、青绿色高亮、路演式叙事"
+    },
+    {
+      "type": "content",
+      "variant": "cards-3",
+      "title": "CONTENTS｜目录",
+      "subtitle": "仿照“项目背景—系统设计—创新优势—未来规划”的路演结构",
+      "cards": [
+        {
+          "title": "01 项目背景",
+          "body": "水生态监测、科研教学与鼓藻样本管理的数字化需求。"
+        },
+        {
+          "title": "02 系统设计与开发",
+          "body": "平台定位、技术架构、识别流程与前端业务模块。"
+        },
+        {
+          "title": "03 创新优势与规划",
+          "body": "闭环能力、竞争优势、数据沉淀与未来迭代路线。"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "variant": "split",
+      "slide_intent": "message",
+      "title": "时代机遇：水生态监测进入智能化窗口",
+      "subtitle": "显微图像、物种记录和生态分析正在从人工经验走向数据化平台",
+      "bullets": [
+        "水生态监测需要更高频、更低成本的藻类样本识别能力。",
+        "科研教学场景需要可复核、可解释、可归档的显微图像工作流。",
+        "公开分布记录与本地采样数据正在成为生态分析的重要补充。",
+        "深度学习模型可承担初筛、候选排序与结果解释的辅助角色。"
+      ],
+      "highlights": [
+        "从单张识别走向样本库",
+        "从结果截图走向可追溯报告"
+      ],
+      "footer": "项目定位：科研辅助识别，不替代人工最终鉴定"
+    },
+    {
+      "type": "content",
+      "variant": "cards-3",
+      "slide_intent": "evidence",
+      "title": "行业痛点：传统鼓藻鉴定的三大瓶颈",
+      "subtitle": "与参考 PPT 的“行业困境”页对应，聚焦显微识别场景",
+      "cards": [
+        {
+          "title": "形态相似，鉴定门槛高",
+          "body": "鼓藻类群细胞形态差异细微，常需结合缢缝、半细胞轮廓、端部结构和纹饰人工判断。",
+          "accent": "accent_primary"
+        },
+        {
+          "title": "批量样本，筛查效率低",
+          "body": "多点位、多批次显微图像依赖人工逐张查看，难以适配课程实验和连续监测。",
+          "accent": "accent_secondary"
+        },
+        {
+          "title": "记录零散，复核链路断裂",
+          "body": "识别结论、采样点、图片、置信度和报告分散保存，后续复核与生态分析成本高。",
+          "accent": "accent_primary"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "variant": "image-sidebar",
+      "title": "项目总览：“鼓藻鉴析”是什么？",
+      "subtitle": "并非单一识别模型，而是一套面向水生态样本的智能识别与数据归档平台",
+      "assets": {
+        "hero_image": "assets/cosmarium-reference.png"
+      },
+      "sidebar_sections": [
+        {
+          "title": "平台定位",
+          "body": "面向水生态监测、科研教学和藻类样本管理的智能辅助平台。"
+        },
+        {
+          "title": "核心技术",
+          "body": "基于 YOLO11 目标检测模型，输出识别类别、置信度、候选排序和结果图。"
+        },
+        {
+          "title": "系统载体",
+          "body": "React + Vite 前端，Flask + SQLite 后端，支持检测、记录、分布和报告。"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "variant": "stats",
+      "title": "平台数据视图：从识别到分布的工作台",
+      "subtitle": "用关键指标呈现系统覆盖能力，呼应参考稿“项目总览”页",
+      "facts": [
+        {
+          "label": "识别样本",
+          "value": "18,420",
+          "detail": "演示数据：LocalSampling"
+        },
+        {
+          "label": "采样点",
+          "value": "128",
+          "detail": "本地采样记录"
+        },
+        {
+          "label": "鼓藻类群",
+          "value": "42",
+          "detail": "平台物种档案"
+        },
+        {
+          "label": "公开分布",
+          "value": "12,860",
+          "detail": "GBIF / iNaturalist"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "variant": "cards-3",
+      "slide_intent": "process",
+      "visual_intent": "flow",
+      "title": "系统架构：分层式水生态智能识别平台",
+      "subtitle": "从用户访问、统一接口到 AI 感知引擎和数据沉淀层层递进",
+      "footer": "对应参考 PPT 的“系统架构 / 技术架构”章节",
+      "cards": [
+        {
+          "title": "前端交互层",
+          "body": "React + Vite 构建首页、图像检测、记录管理、分布图谱与物种档案等科研工作台页面。",
+          "accent": "accent_primary"
+        },
+        {
+          "title": "服务与模型层",
+          "body": "Flask API 负责上传、推理、记录、报告与数据查询，YOLO11 模型输出类别、置信度和检测框。",
+          "accent": "accent_secondary"
+        },
+        {
+          "title": "数据沉淀层",
+          "body": "SQLite 保存检测记录、采样点、复核状态、报告结果，并连接物种档案与公开分布数据。",
+          "accent": "accent_primary"
+        }
+      ],
+      "summary_callout": "分层架构让交互体验、模型推理和数据归档可以独立演进，也便于后续扩展批量检测、生态分析和报告导出。"
+    },
+    {
+      "type": "content",
+      "variant": "timeline",
+      "slide_intent": "process",
+      "title": "一站式检测流程：从图片到报告",
+      "subtitle": "围绕用户全流程业务需求，形成闭环式科研辅助体验",
+      "milestones": [
+        {
+          "label": "01",
+          "title": "图像上传",
+          "body": "支持 PNG、JPG、WEBP、BMP 显微图像。"
+        },
+        {
+          "label": "02",
+          "title": "质量检查",
+          "body": "识别文件大小、格式与分辨率风险。"
+        },
+        {
+          "label": "03",
+          "title": "YOLO11 检测",
+          "body": "输出检测框、类别、置信度和候选排序。"
+        },
+        {
+          "label": "04",
+          "title": "解释归档",
+          "body": "生成形态说明、复核建议、样本记录与报告。"
+        }
+      ],
+      "summary_callout": "识别结果仅作为智能辅助参考，最终鉴定可结合人工复核与实验条件综合判断。"
+    },
+    {
+      "type": "content",
+      "variant": "table",
+      "title": "前端业务模块：用户可直接操作的科研工作台",
+      "subtitle": "采用模块化页面组织，降低显微检测与数据管理门槛",
+      "headers": [
+        "模块",
+        "核心能力",
+        "输出价值"
+      ],
+      "rows": [
+        [
+          "首页总览",
+          "模型状态、最近记录、分布排行",
+          "快速判断平台运行与数据概况"
+        ],
+        [
+          "图像检测",
+          "单张/批量上传、YOLO11 推理、候选排序",
+          "完成鼓藻样本智能初筛"
+        ],
+        [
+          "检测记录",
+          "搜索筛选、复核状态、报告生成",
+          "支撑历史追溯与项目归档"
+        ],
+        [
+          "分布图谱",
+          "地图点位、数据来源、区域/物种排行",
+          "辅助水生态空间分析"
+        ],
+        [
+          "物种档案",
+          "属名录、真实图片、形态说明",
+          "服务科研教学与人工复核"
+        ]
+      ],
+      "caption": "模块内容来自当前前端页面与 API 结构"
+    },
+    {
+      "type": "content",
+      "variant": "image-sidebar",
+      "title": "数据检测：YOLO11 模型的优势与价值",
+      "subtitle": "把模型能力嵌入平台，而不是停留在单次推理截图",
+      "assets": {
+        "hero_image": "assets/closterium-reference.png"
+      },
+      "sidebar_sections": [
+        {
+          "title": "检测精度",
+          "body": "基于检测框和候选排序辅助判断鼓藻样本类型。"
+        },
+        {
+          "title": "推理效率",
+          "body": "单图检测流程包含上传进度、处理耗时和结果图回显。"
+        },
+        {
+          "title": "部署可行",
+          "body": "后端可优先调用真实权重；不可用时保留演示模型保证展示连续。"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "variant": "cards-3",
+      "title": "界面展示：专业检测报告式结果区",
+      "subtitle": "把识别类别、置信度、检测时间、图片预览和解释建议放在同一工作流",
+      "cards": [
+        {
+          "title": "上传检测",
+          "body": "大面积拖拽上传区，显示格式、大小、分辨率和质量提示。"
+        },
+        {
+          "title": "结果分析",
+          "body": "结果图、检测框、Top 候选、最高置信度和处理耗时集中展示。"
+        },
+        {
+          "title": "复核归档",
+          "body": "人工确认物种、复核状态、同步分布图谱、导出单图报告。"
+        }
+      ],
+      "footer": "对应参考 PPT 的“界面展示 / 智能检测与分析”页面"
+    },
+    {
+      "type": "content",
+      "variant": "image-sidebar",
+      "title": "分布图谱与物种档案：从识别结果走向生态分析",
+      "subtitle": "将本地采样记录与公开分布数据并入同一生态视图",
+      "assets": {
+        "hero_image": "assets/micrasterias-reference.png"
+      },
+      "sidebar_sections": [
+        {
+          "title": "分布图谱",
+          "body": "按物种、来源、时间、水体类型和视野范围筛选真实坐标记录。"
+        },
+        {
+          "title": "物种档案",
+          "body": "整合属名、拉丁名、代表图片、公开记录和本地坐标记录。"
+        },
+        {
+          "title": "数据提示",
+          "body": "公开数据用于宏观分布展示，本地记录用于项目研究和报告生成。"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "variant": "table",
+      "title": "项目创新：构建多维一体的鼓藻鉴析体系",
+      "subtitle": "并非单点算法，而是“识别—解释—记录—分布—报告”的整体性创新",
+      "headers": [
+        "创新维度",
+        "具体内容",
+        "已形成成果"
+      ],
+      "rows": [
+        [
+          "场景创新",
+          "面向水生态监测、科研教学和样本管理",
+          "明确目标用户与应用场景"
+        ],
+        [
+          "技术创新",
+          "YOLO11 鼓藻目标检测与候选排序",
+          "完成可运行检测接口与前端交互"
+        ],
+        [
+          "流程创新",
+          "采集、识别、复核、归档、报告闭环",
+          "形成单图与批量检测流程"
+        ],
+        [
+          "数据创新",
+          "样本、分布、物种档案、报告统一沉淀",
+          "支持历史查询与生态图谱"
+        ],
+        [
+          "体验创新",
+          "科研平台 + 数据中台式 UI",
+          "统一品牌、导航、卡片、表格和状态"
+        ]
+      ],
+      "caption": "参考第一 PPT 的“项目创新”表格表达方式"
+    },
+    {
+      "type": "content",
+      "variant": "timeline",
+      "slide_intent": "process",
+      "visual_intent": "flow",
+      "title": "闭环服务逻辑：识别能力如何转化为可复核数据资产",
+      "subtitle": "竞争壁垒来自连续工作流，而不只是模型输出",
+      "footer": "对应参考 PPT 的“识别 - 展示 - 记录 - 管理”闭环创新逻辑",
+      "milestones": [
+        {
+          "label": "01",
+          "title": "上传识别",
+          "body": "显微图像进入 YOLO11 检测流程，生成类别、置信度、检测框与候选排序。"
+        },
+        {
+          "label": "02",
+          "title": "人工复核",
+          "body": "用户结合图像细节、模型解释和实验条件确认样本类型，降低误判风险。"
+        },
+        {
+          "label": "03",
+          "title": "记录归档",
+          "body": "检测结果同步到历史记录、采样信息、物种档案和本地分布数据。"
+        },
+        {
+          "label": "04",
+          "title": "分析输出",
+          "body": "沉淀后的数据继续服务分布图谱、统计看板、报告导出与后续模型迭代。"
+        }
+      ],
+      "summary_callout": "每一次检测都沉淀为可追溯样本记录；每一次复核都反哺后续模型数据和生态分析。"
+    },
+    {
+      "type": "content",
+      "variant": "comparison-2col",
+      "title": "竞争优势：从工具型识别走向科研平台",
+      "subtitle": "与普通图像识别脚本或通用 AI 工具相比，平台更贴合水生态业务场景",
+      "left": {
+        "title": "通用识别工具",
+        "bullets": [
+          "通常只返回一次性图片结论",
+          "缺少采样点、复核状态和报告管理",
+          "难以沉淀物种档案和分布记录",
+          "解释能力与科研流程脱节"
+        ]
+      },
+      "right": {
+        "title": "鼓藻鉴析",
+        "bullets": [
+          "检测 + 分析 + 记录 + 报告一体化",
+          "面向鼓藻属类和显微图像场景定制",
+          "支持分布图谱、物种档案与本地采样",
+          "可扩展到教学实验、监测项目和数据归档"
+        ]
+      },
+      "verdict": "核心优势：专业场景定制、数据闭环、可复核记录和生态分析扩展。"
+    },
+    {
+      "type": "content",
+      "variant": "timeline",
+      "title": "未来规划：分阶段构建水生态智能分析体系",
+      "subtitle": "以模型迭代和数据积累为核心驱动力，逐步扩展监测能力",
+      "milestones": [
+        {
+          "label": "近期",
+          "title": "夯实识别底座",
+          "body": "完善 YOLO11 权重接入、低置信度复核和报告导出稳定性。"
+        },
+        {
+          "label": "中期",
+          "title": "拓展样本与图谱",
+          "body": "丰富鼓藻真实图片库，增强 GBIF / iNaturalist 与本地采样融合。"
+        },
+        {
+          "label": "长期",
+          "title": "形成生态分析平台",
+          "body": "结合理化指标、时空趋势和模型复核，服务科研与监测项目。"
+        }
+      ],
+      "summary_callout": "目标：从鼓藻识别平台升级为可持续沉淀数据的水生态智能诊断底座。"
+    },
+    {
+      "type": "section",
+      "title": "鼓藻鉴析",
+      "subtitle": "让显微样本识别更高效，让水生态数据更可追溯",
+      "bullets": [
+        "YOLO11 智能识别",
+        "检测记录管理",
+        "智能生态分析",
+        "报告导出与复核闭环"
+      ],
+      "caption": "基于当前项目内容生成，可继续替换团队信息、数据指标和真实截图。"
+    }
+  ]
+}

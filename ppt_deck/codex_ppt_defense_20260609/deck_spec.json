@@ -1,0 +1,345 @@
+{
+  "deck_name": "codex_ppt_defense_20260609",
+  "language": "Chinese",
+  "goal": "生成一套面向比赛初评/答辩的项目 PPT，证明“鼓藻鉴析——基于 YOLO11 的鼓藻智能识别与分析平台”具备明确需求、完整作品设计、可运行功能、创新价值、应用场景和资料完整度。真实网站截图位置先留空白占位，其他页面先完成。",
+  "selected_image_backend": "built-in image tool",
+  "max_concurrent_slides": 6,
+  "sample_generation_method": {
+    "backend_used": "built-in image tool",
+    "tool_name": "image_gen",
+    "mode": "generate_then_edit",
+    "prompt_source": "prompts/slide_08_sample_prompt.md",
+    "size": "16:9 landscape, built-in default",
+    "quality": "built-in default",
+    "approved_sample_path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+    "input_context_preparation": "view_image was used for the light style board, recognition visual, and YOLO detection result before built-in generation",
+    "handoff_rule": "Subagents must use this same built-in image tool path and return a blocker if unavailable."
+  },
+  "approved_style_reference": {
+    "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/origin_image/slide_08.png",
+    "role": "approved sample slide style reference",
+    "fidelity": "match style only; do not copy layout unless the slide role needs a feature-page composition"
+  },
+  "style": {
+    "name": "浅色水生态科研竞赛风",
+    "visual_direction": "统一浅色科研风，白色与浅水青画布，显微镜视野、细网格、水波纹理和鼓藻形态作为背景语言；少量深水青标题条和水光青强调，不使用整页深色背景。",
+    "color_palette": "white, pale aqua #EAFBFA, soft water cyan #DDF7FF, deep water cyan #0B3B4A, scientific teal #0F766E, aqua #2DD4BF, small warm gold #F5C542",
+    "typography": "中文标题大而稳，深水青粗体；正文短句清晰，避免过密；小标签使用紧凑无衬线风格。",
+    "texture_and_finish": "light microscopy texture, fine grid, subtle water caustics, translucent glass panels, restrained competition-deck polish",
+    "card_stacking_rule": "Only use subtle 2-3 layer information-card stacking on Slide 4, Slide 8, Slide 10, and Slide 12. Other slides should use clean diagrams, timelines, metrics, or text-image layouts.",
+    "screenshot_placeholder_rule": "For places that need real website screenshots, render clean empty placeholder panels labeled exactly “网站实机截图占位”. Do not invent, hallucinate, or redraw website screenshots."
+  },
+  "deck_context": {
+    "source_summary": "项目采用 React + Vite + Tailwind CSS 前端和 Flask + SQLite 后端，围绕 YOLO11 鼓藻显微图像识别，扩展了批量分析、物种档案、分布图谱、数据中心、报告导出和复核归档。",
+    "core_claim": "鼓藻鉴析不是单一识别模型，而是把显微图像识别、人工复核、数据归档、报告输出和生态分析串成可运行的科研辅助平台。",
+    "competition_requirements": ["需求痛点", "作品设计和制作", "功能展示", "创新点", "应用场景", "知识产权与合规", "竞品分析", "团队介绍", "视频展示计划"],
+    "known_evidence": {
+      "records": 45,
+      "sample_records": 45,
+      "distribution_records": 89,
+      "desmid_genera": 35,
+      "review_records": 7,
+      "users": 3
+    },
+    "canonical_terms": ["鼓藻鉴析", "YOLO11", "候选排序", "置信度", "人工复核", "样本归档", "分布图谱", "报告导出", "科研辅助参考"]
+  },
+  "slides": [
+    {
+      "number": 1,
+      "title": "鼓藻鉴析",
+      "role": "cover",
+      "intent": "以浅色科研封面建立项目专业度和比赛作品感。",
+      "key_points": ["基于 YOLO11 的鼓藻智能识别与分析平台", "显微图像识别 · 人工复核 · 数据归档 · 生态分析", "比赛初评项目答辩"],
+      "local_context": {
+        "required_background": "封面要统一浅色风格，左侧标题区域留白，右侧显微镜和鼓藻视觉丰富。团队、学校、指导老师用小字占位，不写具体姓名。"
+      },
+      "layout": {
+        "composition": "full-bleed light cover background; large title block on left; right side microscopy/desmid cluster; bottom has thin wave line and small metadata strip",
+        "content_zones": "left title zone, right visual zone, bottom metadata zone",
+        "spacing": "airy, premium, no crowded cards"
+      },
+      "visual_elements": {
+        "main_visual": "use the supplied light cover background as the full-slide background",
+        "supporting_elements": "small detection preview motif and subtle technical lines"
+      },
+      "required_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/assets/generated_style/cover_bg_light_desmid_ai.png",
+          "role": "strict input asset; primary light cover background",
+          "fidelity": "preserve the light background style, microscope lens, desmid cluster, and clean left title space"
+        }
+      ],
+      "constraints": ["Do not use dark full-page background.", "Do not include page number.", "No fake website screenshots."]
+    },
+    {
+      "number": 2,
+      "title": "需求痛点",
+      "role": "context / problem",
+      "intent": "说明为什么鼓藻识别需要平台化智能辅助。",
+      "key_points": ["人工识别难：形态差异细微，依赖分类经验", "样本处理慢：多批次图片逐张观察，通量低", "记录难沉淀：原图、结论、采样与复核分散保存", "数据难复用：单次识别难延伸到图谱和模型迭代"],
+      "layout": {
+        "composition": "left side microscope reference image; right side four clean problem bands with short labels and one-line explanations",
+        "content_zones": "top title, left image evidence, right pain-point list",
+        "spacing": "clear and readable, no dense paragraph blocks"
+      },
+      "visual_elements": {
+        "main_visual": "Cosmarium reference image in a pale microscope frame",
+        "supporting_elements": "four numbered pain tags with thin teal dividers"
+      },
+      "required_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/frontend/src/assets/cosmarium-reference.png",
+          "role": "strict input asset; desmid reference image for morphology and recognition difficulty",
+          "fidelity": "preserve the desmid visual content"
+        }
+      ],
+      "constraints": ["Avoid alarmist red warning style.", "Keep the page light and academic."]
+    },
+    {
+      "number": 3,
+      "title": "用户与应用场景",
+      "role": "application scenarios",
+      "intent": "对应比赛要求中的应用场景，讲清楚谁会用、怎么用。",
+      "key_points": ["水生态监测：批量筛查显微样本，关注复核与归档", "科研教学：查看候选类别、形态解释和观察建议", "数据管理：维护检测历史、采样点、物种档案和训练素材", "典型场景：课堂实验、监测初筛、样本整理、区域分布观察"],
+      "layout": {
+        "composition": "three user columns with icon circles, connected to a bottom scenario ribbon",
+        "content_zones": "title, three user cards, bottom scenario band",
+        "spacing": "balanced columns, minimal stacking"
+      },
+      "visual_elements": {
+        "main_visual": "three clean role cards with microscope/sample/map icons",
+        "supporting_elements": "bottom pale teal scenario ribbon with four short tags"
+      },
+      "constraints": ["No people photos unless supplied.", "No invented website screenshots."]
+    },
+    {
+      "number": 4,
+      "title": "竞品与现有方案分析",
+      "role": "comparison",
+      "intent": "用少量堆叠卡片呈现传统方案与本作品的差异。",
+      "key_points": ["人工鉴定：可信但效率低、门槛高", "通用识别工具：上手快但缺少鼓藻知识和复核链路", "普通检测后台：能记录但缺少生态图谱和数据闭环", "鼓藻鉴析：识别、复核、归档、报告、图谱一体化"],
+      "layout": {
+        "composition": "left side has three lightly stacked existing-solution cards; right side has a larger highlighted platform-closed-loop card",
+        "content_zones": "title top, comparison body, bottom takeaway strip",
+        "spacing": "use only 2-3 stacked layers; avoid excessive card pile"
+      },
+      "visual_elements": {
+        "main_visual": "comparison cards with simple line icons",
+        "supporting_elements": "arrow from existing solutions to platform loop"
+      },
+      "constraints": ["This is not a startup pitch; avoid market-size language.", "Keep text concise."]
+    },
+    {
+      "number": 5,
+      "title": "作品定位与总体设计",
+      "role": "concept explanation",
+      "intent": "说明作品不是单一模型，而是科研辅助平台闭环。",
+      "key_points": ["平台定位：显微图像识别 + 科研数据管理 + 生态辅助分析", "核心闭环：上传 → 识别 → 候选 → 复核 → 归档 → 报告/图谱", "输出定位：科研辅助参考，不替代最终人工鉴定", "设计目标：可信、可复核、可追溯、可展示、可扩展"],
+      "local_context": {
+        "screenshot_placeholder": "此页原计划放首页真实截图，当前必须留空白占位。占位框文字必须是“网站实机截图占位”。"
+      },
+      "layout": {
+        "composition": "horizontal workflow line through the middle; bottom or right has a clean empty website screenshot placeholder panel",
+        "content_zones": "title, workflow diagram, placeholder panel, short positioning statement",
+        "spacing": "clear, avoid dense body text"
+      },
+      "visual_elements": {
+        "main_visual": "seven-step workflow line with thin arrows",
+        "supporting_elements": "blank rounded screenshot placeholder labeled 网站实机截图占位"
+      },
+      "required_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/assets/generated_style/content_bg_light_microscopy.png",
+          "role": "strict input asset; light inner slide background",
+          "fidelity": "preserve the pale aqua background style"
+        }
+      ],
+      "constraints": ["Do not invent a website screenshot.", "The placeholder must be visibly empty and intentional."]
+    },
+    {
+      "number": 6,
+      "title": "作品制作与技术路线",
+      "role": "architecture / production",
+      "intent": "对应比赛要求中的作品设计和制作，展示工程路线。",
+      "key_points": ["前端：React + Vite + Tailwind CSS 构建科研工作台", "后端：Flask + REST API 提供识别、统计、报告和分布接口", "模型：YOLO11 目标检测输出检测框、类别、置信度与候选排序", "数据：SQLite 保存识别、样本、复核、分布与属名录"],
+      "layout": {
+        "composition": "technical route diagram with four horizontal lanes: frontend, backend, model, data",
+        "content_zones": "title, four-lane route, small tech tags",
+        "spacing": "engineering blueprint feel but light"
+      },
+      "visual_elements": {
+        "main_visual": "four-lane architecture route with concise tech tags",
+        "supporting_elements": "small code/API/database icons"
+      },
+      "constraints": ["No fake code screenshots.", "Use labels exactly: React, Vite, Tailwind CSS, Flask, REST API, YOLO11, SQLite."]
+    },
+    {
+      "number": 7,
+      "title": "系统架构与数据闭环",
+      "role": "architecture",
+      "intent": "展示系统层次和数据回流逻辑。",
+      "key_points": ["用户交互层：总览、检测、批量、数据中心、图谱、档案、记录", "业务服务层：上传检测、批量任务、样本归档、报告导出、分布同步", "模型推理层：YOLO11 检测、阈值控制、候选排序、低置信度提示", "数据存储层：SQLite 沉淀图像、报告、采样、复核和分布数据"],
+      "layout": {
+        "composition": "four stacked horizontal architecture layers in light panels, with a bottom feedback arrow returning data to model assets",
+        "content_zones": "title, architecture stack, feedback arrow",
+        "spacing": "not card-heavy; use thin lines and layer bands"
+      },
+      "visual_elements": {
+        "main_visual": "four-layer system architecture",
+        "supporting_elements": "bottom data feedback arrow and small database icon"
+      },
+      "constraints": ["No dark full-page dashboard.", "Keep all architecture labels readable."]
+    },
+    {
+      "number": 8,
+      "title": "单张图像智能识别",
+      "role": "case study / feature",
+      "intent": "Approved sample slide; keep as final sample style reference.",
+      "key_points": ["上传显微图像后输出检测框、候选排序、置信度与复核建议"],
+      "layout": {
+        "composition": "approved sample slide already generated",
+        "content_zones": "approved sample"
+      },
+      "visual_elements": {
+        "main_visual": "approved sample slide image"
+      },
+      "sample_approved": true,
+      "constraints": ["Use existing origin_image/slide_08.png; do not regenerate unless explicitly requested."]
+    },
+    {
+      "number": 9,
+      "title": "批量分析与报告输出",
+      "role": "workflow / feature",
+      "intent": "说明批量处理和报告导出能力，网站截图先留空。",
+      "key_points": ["/api/batch 支持多图上传、逐张识别、失败记录和低置信度统计", "批量结果可排序、筛选、汇总，适合教学实验和监测初筛", "支持 CSV、单张 PDF 报告和批量 PDF 报告导出", "报告保留候选排序、形态依据、图像质量建议和辅助说明"],
+      "local_context": {
+        "screenshot_placeholder": "此页原计划放批量分析或报告预览真实截图，当前必须留空白占位。占位框文字必须是“网站实机截图占位”。"
+      },
+      "layout": {
+        "composition": "left: blank screenshot placeholder panel; right: batch-report workflow and four metrics; bottom: export path",
+        "content_zones": "title, placeholder, metrics, export workflow",
+        "spacing": "clean and report-like"
+      },
+      "visual_elements": {
+        "main_visual": "blank rounded screenshot placeholder labeled 网站实机截图占位",
+        "supporting_elements": "CSV/PDF export arrows and batch metric chips"
+      },
+      "constraints": ["Do not invent report preview screenshot.", "No fake table content beyond simple non-website diagram labels."]
+    },
+    {
+      "number": 10,
+      "title": "数据中心、图谱与生态分析",
+      "role": "feature / system extension",
+      "intent": "展示从识别扩展到数据中心和生态分布分析，截图先留空。",
+      "key_points": ["数据中心整合样本、采样点、分布、模型与导入导出", "分布图谱兼容 GBIF、iNaturalist、本地采样和人工导入记录", "支持筛选、GeoJSON/CSV 导出和区域/物种汇总", "生态评估结合 pH、透明度与物种组成输出辅助建议"],
+      "local_context": {
+        "screenshot_placeholder": "此页原计划放数据中心和分布图谱真实截图，当前必须留两个空白占位框。每个占位框文字必须是“网站实机截图占位”。"
+      },
+      "layout": {
+        "composition": "two lightly offset screenshot placeholders on left and center; right side has three small metric cards for 89分布记录、35属名录、7复核记录",
+        "content_zones": "title, placeholder pair, metric stack",
+        "spacing": "this is one of the few pages allowed to use subtle card stacking"
+      },
+      "visual_elements": {
+        "main_visual": "two blank website screenshot placeholder panels",
+        "supporting_elements": "three small stacked metrics: 分布记录 89, 鼓藻属名录 35, 复核记录 7"
+      },
+      "constraints": ["Do not invent map or dashboard screenshot.", "Keep stacking subtle."]
+    },
+    {
+      "number": 11,
+      "title": "作品完成度与真实运行证据",
+      "role": "data evidence",
+      "intent": "用真实数据和接口清单证明作品不是空概念。",
+      "key_points": ["前后端已整合：React/Vite/Tailwind 前端，Flask/SQLite 后端", "接口覆盖：认证、首页看板、检测、批量、历史、统计、报告、分布同步", "演示数据库：识别记录 45 条、样本记录 45 条、分布记录 89 条", "复核记录 7 条、鼓藻属名录 35 条、用户 3 个"],
+      "layout": {
+        "composition": "top evidence headline; middle metric strip; bottom API coverage checklist in two rows",
+        "content_zones": "title, metrics, API checklist",
+        "spacing": "data evidence, not decorative"
+      },
+      "visual_elements": {
+        "main_visual": "metric strip with six real numbers",
+        "supporting_elements": "API chips and completion badge"
+      },
+      "constraints": ["Use only the listed real numbers.", "No invented accuracy claims."]
+    },
+    {
+      "number": 12,
+      "title": "创新点",
+      "role": "comparison / innovation",
+      "intent": "用少量错位堆叠卡片提炼四个创新。",
+      "key_points": ["从单张识别扩展为识别、复核、归档、报告、图谱完整工作流", "将模型输出转化为候选排序、置信度、质量建议和形态解释", "统一本地采样与公开分布记录，形成可筛选、可导出的生态图谱", "围绕水生态科研场景设计界面与数据语言，区别于通用后台模板"],
+      "layout": {
+        "composition": "four innovation cards in a 2x2 grid, each card has a small '过去做法 → 本作品做法' contrast line; use subtle stacking behind only two cards",
+        "content_zones": "title, four-card innovation grid, bottom takeaway",
+        "spacing": "competition highlight page with restrained emphasis"
+      },
+      "visual_elements": {
+        "main_visual": "four innovation cards with line icons",
+        "supporting_elements": "subtle stacked shadows and thin arrows"
+      },
+      "constraints": ["Avoid empty slogan language.", "Do not overuse stacking."]
+    },
+    {
+      "number": 13,
+      "title": "知识产权与合规说明",
+      "role": "IP / compliance",
+      "intent": "回应比赛要求中的知识产权和资料合规。",
+      "key_points": ["作品代码、页面设计和业务流程为本项目定制开发", "第三方依赖按开源协议使用：React、Vite、Tailwind CSS、Flask、Leaflet、lucide-react", "公开分布数据需保留 GBIF、iNaturalist 等来源标识", "模型识别结果定位为科研辅助参考，保留人工复核机制"],
+      "layout": {
+        "composition": "left compliance checklist, right open-source/data-source label cloud, bottom caution strip",
+        "content_zones": "title, checklist, label cloud, caution strip",
+        "spacing": "serious and concise"
+      },
+      "visual_elements": {
+        "main_visual": "checklist and dependency tags",
+        "supporting_elements": "data-source badges and review shield icon"
+      },
+      "constraints": ["Do not make it look like a legal document.", "Keep labels readable."]
+    },
+    {
+      "number": 14,
+      "title": "团队介绍与视频展示计划",
+      "role": "team / video plan",
+      "intent": "补齐比赛资料要求中的团队介绍和视频展示计划。",
+      "key_points": ["团队分工：项目统筹、算法/后端、前端/交互、资料/答辩、视频制作", "协作产出：模型与接口、产品界面、数据资料、答辩材料和视频演示", "视频结构：定位开场 → 图片识别 → 批量/报告 → 数据中心/图谱 → 价值总结", "视频重点展示真实功能操作，不只播放 PPT"],
+      "local_context": {
+        "team_names": "团队具体姓名未知，使用角色占位，不写假姓名。"
+      },
+      "layout": {
+        "composition": "left team role matrix with role placeholders; right video storyboard timeline with five time segments",
+        "content_zones": "title, team matrix, video timeline",
+        "spacing": "clear enough for later replacing placeholders"
+      },
+      "visual_elements": {
+        "main_visual": "team matrix plus video storyboard timeline",
+        "supporting_elements": "small video camera and checklist icons"
+      },
+      "constraints": ["Do not invent team member names.", "Use role placeholders only."]
+    },
+    {
+      "number": 15,
+      "title": "总结与未来规划",
+      "role": "summary / Q&A",
+      "intent": "用浅色风格收束，形成答辩结束页。",
+      "key_points": ["当前成果：识别、复核、归档、报告、分布分析闭环已形成", "近期：扩充真实标注数据，完善 YOLO11 权重评估指标", "中期：增强分布同步质量控制、报告模板和训练数据回流", "长期：发展为面向水生态监测与科研教学的智能分析平台"],
+      "layout": {
+        "composition": "three-stage roadmap from near to mid to long term; large Q&A closing area on left-center",
+        "content_zones": "title, roadmap, Q&A area",
+        "spacing": "calm and spacious"
+      },
+      "visual_elements": {
+        "main_visual": "use supplied light closing background as full-slide background",
+        "supporting_elements": "three-stage roadmap and Q&A mark"
+      },
+      "required_images": [
+        {
+          "path": "C:/Users/孙鹏淇/Desktop/guzaoshibie/ppt_deck/codex_ppt_defense_20260609/assets/generated_style/closing_bg_light_desmid.png",
+          "role": "strict input asset; light closing background",
+          "fidelity": "preserve the light closing background and text space"
+        }
+      ],
+      "constraints": ["Do not use dark closing background.", "No page number."]
+    }
+  ]
+}

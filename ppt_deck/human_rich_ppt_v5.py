@@ -1,0 +1,665 @@
+from __future__ import annotations
+
+import argparse
+import re
+import shutil
+import tempfile
+import zipfile
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+
+NS = {
+    "p": "http://schemas.openxmlformats.org/presentationml/2006/main",
+    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
+    "r": "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+    "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
+}
+
+for prefix, uri in NS.items():
+    if prefix != "rel":
+        ET.register_namespace(prefix, uri)
+
+IMAGE_REL_TYPE = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"
+EMU = 914400
+BG_NAME = "Codex Human Rich Imagegen Background"
+WASH_NAME = "Codex Human Rich Readability Wash"
+DETAIL_NAME = "Codex Human Rich Detail"
+
+PALETTE = {
+    "deep": "0B4A47",
+    "deep2": "123F3D",
+    "teal": "0F766E",
+    "teal2": "2A9D8F",
+    "aqua": "72D4CA",
+    "line": "8CCFC7",
+    "amber": "D99A24",
+    "mist": "E7F8F4",
+    "cream": "F2FBF7",
+    "sage": "CBE9E2",
+    "white": "FFFFFF",
+}
+
+
+def qn(prefix: str, tag: str) -> str:
+    return f"{{{NS[prefix]}}}{tag}"
+
+
+def emu(v: float) -> str:
+    return str(int(v * EMU))
+
+
+def read_slide_size(payload: dict[str, bytes]) -> tuple[int, int]:
+    root = ET.fromstring(payload["ppt/presentation.xml"])
+    sld_sz = root.find("p:sldSz", NS)
+    if sld_sz is None:
+        return 9144000, 5143500
+    return int(sld_sz.get("cx", "9144000")), int(sld_sz.get("cy", "5143500"))
+
+
+def write_xml(zf: zipfile.ZipFile, name: str, root: ET.Element) -> None:
+    zf.writestr(name, ET.tostring(root, encoding="utf-8", xml_declaration=True))
+
+
+def next_rid(rels_root: ET.Element) -> str:
+    max_id = 0
+    for rel in rels_root:
+        rid = rel.attrib.get("Id", "")
+        match = re.match(r"rId(\d+)$", rid)
+        if match:
+            max_id = max(max_id, int(match.group(1)))
+    return f"rId{max_id + 1}"
+
+
+def next_shape_id(sp_tree: ET.Element) -> int:
+    max_id = 1
+    for c_nv_pr in sp_tree.findall(".//p:cNvPr", NS):
+        raw = c_nv_pr.attrib.get("id")
+        if raw and raw.isdigit():
+            max_id = max(max_id, int(raw))
+    return max_id + 1
+
+
+def get_xfrm(child: ET.Element) -> tuple[int, int, int, int] | None:
+    xfrm = child.find(".//a:xfrm", NS)
+    if xfrm is None:
+        return None
+    off = xfrm.find("a:off", NS)
+    ext = xfrm.find("a:ext", NS)
+    if off is None or ext is None:
+        return None
+    return (
+        int(off.get("x", "0")),
+        int(off.get("y", "0")),
+        int(ext.get("cx", "0")),
+        int(ext.get("cy", "0")),
+    )
+
+
+def has_text(child: ET.Element) -> bool:
+    return any((t.text or "").strip() for t in child.findall(".//a:t", NS))
+
+
+def remove_generated_layers(sp_tree: ET.Element, slide_w: int, slide_h: int) -> None:
+    for child in list(sp_tree):
+        c_nv_pr = child.find(".//p:cNvPr", NS)
+        name = c_nv_pr.attrib.get("name", "") if c_nv_pr is not None else ""
+        if (
+            name.startswith("Codex")
+            or name.startswith(BG_NAME)
+            or name.startswith(WASH_NAME)
+            or name.startswith(DETAIL_NAME)
+        ):
+            sp_tree.remove(child)
+            continue
+        if child.tag == qn("p", "sp") and not has_text(child):
+            xfrm = get_xfrm(child)
+            if xfrm is None:
+                continue
+            x, y, w, h = xfrm
+            if abs(x) <= 20000 and abs(y) <= 20000 and w >= slide_w * 0.98 and h >= slide_h * 0.98:
+                sp_tree.remove(child)
+
+
+def solid_fill(parent: ET.Element, color: str, alpha: int | None = None) -> None:
+    solid = ET.SubElement(parent, qn("a", "solidFill"))
+    srgb = ET.SubElement(solid, qn("a", "srgbClr"), {"val": color})
+    if alpha is not None:
+        ET.SubElement(srgb, qn("a", "alpha"), {"val": str(alpha)})
+
+
+def no_fill(parent: ET.Element) -> None:
+    ET.SubElement(parent, qn("a", "noFill"))
+
+
+def add_line_style(parent: ET.Element, color: str, alpha: int = 70000, width: int = 11000) -> None:
+    ln = ET.SubElement(parent, qn("a", "ln"), {"w": str(width)})
+    solid = ET.SubElement(ln, qn("a", "solidFill"))
+    srgb = ET.SubElement(solid, qn("a", "srgbClr"), {"val": color})
+    ET.SubElement(srgb, qn("a", "alpha"), {"val": str(alpha)})
+
+
+def make_background_pic(rid: str, shape_id: int, slide_w: int, slide_h: int) -> ET.Element:
+    pic = ET.Element(qn("p", "pic"))
+    nv_pic_pr = ET.SubElement(pic, qn("p", "nvPicPr"))
+    ET.SubElement(nv_pic_pr, qn("p", "cNvPr"), {"id": str(shape_id), "name": BG_NAME})
+    c_nv_pic_pr = ET.SubElement(nv_pic_pr, qn("p", "cNvPicPr"))
+    ET.SubElement(c_nv_pic_pr, qn("a", "picLocks"), {"noChangeAspect": "1"})
+    ET.SubElement(nv_pic_pr, qn("p", "nvPr"))
+    blip_fill = ET.SubElement(pic, qn("p", "blipFill"))
+    ET.SubElement(blip_fill, qn("a", "blip"), {qn("r", "embed"): rid})
+    stretch = ET.SubElement(blip_fill, qn("a", "stretch"))
+    ET.SubElement(stretch, qn("a", "fillRect"))
+    sp_pr = ET.SubElement(pic, qn("p", "spPr"))
+    xfrm = ET.SubElement(sp_pr, qn("a", "xfrm"))
+    ET.SubElement(xfrm, qn("a", "off"), {"x": "0", "y": "0"})
+    ET.SubElement(xfrm, qn("a", "ext"), {"cx": str(slide_w), "cy": str(slide_h)})
+    geom = ET.SubElement(sp_pr, qn("a", "prstGeom"), {"prst": "rect"})
+    ET.SubElement(geom, qn("a", "avLst"))
+    return pic
+
+
+def make_overlay(shape_id: int, slide_w: int, slide_h: int, color: str, alpha: int) -> ET.Element:
+    shape = ET.Element(qn("p", "sp"))
+    nv = ET.SubElement(shape, qn("p", "nvSpPr"))
+    ET.SubElement(nv, qn("p", "cNvPr"), {"id": str(shape_id), "name": WASH_NAME})
+    ET.SubElement(nv, qn("p", "cNvSpPr"))
+    ET.SubElement(nv, qn("p", "nvPr"))
+    sp_pr = ET.SubElement(shape, qn("p", "spPr"))
+    xfrm = ET.SubElement(sp_pr, qn("a", "xfrm"))
+    ET.SubElement(xfrm, qn("a", "off"), {"x": "0", "y": "0"})
+    ET.SubElement(xfrm, qn("a", "ext"), {"cx": str(slide_w), "cy": str(slide_h)})
+    geom = ET.SubElement(sp_pr, qn("a", "prstGeom"), {"prst": "rect"})
+    ET.SubElement(geom, qn("a", "avLst"))
+    solid_fill(sp_pr, color, alpha)
+    ET.SubElement(sp_pr, qn("a", "ln"), {"w": "0"})
+    return shape
+
+
+def add_shape(
+    sp_tree: ET.Element,
+    shape_id: int,
+    geom_type: str,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    line: str = "8CCFC7",
+    line_alpha: int = 62000,
+    fill: str | None = None,
+    fill_alpha: int = 15000,
+    width: int = 12000,
+) -> None:
+    shape = ET.Element(qn("p", "sp"))
+    nv = ET.SubElement(shape, qn("p", "nvSpPr"))
+    ET.SubElement(nv, qn("p", "cNvPr"), {"id": str(shape_id), "name": f"{DETAIL_NAME} {geom_type}"})
+    ET.SubElement(nv, qn("p", "cNvSpPr"))
+    ET.SubElement(nv, qn("p", "nvPr"))
+    sp_pr = ET.SubElement(shape, qn("p", "spPr"))
+    xfrm = ET.SubElement(sp_pr, qn("a", "xfrm"))
+    ET.SubElement(xfrm, qn("a", "off"), {"x": emu(x), "y": emu(y)})
+    ET.SubElement(xfrm, qn("a", "ext"), {"cx": emu(w), "cy": emu(h)})
+    geom = ET.SubElement(sp_pr, qn("a", "prstGeom"), {"prst": geom_type})
+    ET.SubElement(geom, qn("a", "avLst"))
+    if fill:
+        solid_fill(sp_pr, fill, fill_alpha)
+    else:
+        no_fill(sp_pr)
+    add_line_style(sp_pr, line, line_alpha, width)
+    sp_tree.append(shape)
+
+
+def add_text(
+    sp_tree: ET.Element,
+    shape_id: int,
+    paragraphs: list[str],
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    font: str,
+    color: str,
+    size_pt: int,
+    bold: bool = False,
+    align: str = "l",
+) -> None:
+    shape = ET.Element(qn("p", "sp"))
+    nv = ET.SubElement(shape, qn("p", "nvSpPr"))
+    ET.SubElement(nv, qn("p", "cNvPr"), {"id": str(shape_id), "name": f"{DETAIL_NAME} text"})
+    ET.SubElement(nv, qn("p", "cNvSpPr"), {"txBox": "1"})
+    ET.SubElement(nv, qn("p", "nvPr"))
+    sp_pr = ET.SubElement(shape, qn("p", "spPr"))
+    xfrm = ET.SubElement(sp_pr, qn("a", "xfrm"))
+    ET.SubElement(xfrm, qn("a", "off"), {"x": emu(x), "y": emu(y)})
+    ET.SubElement(xfrm, qn("a", "ext"), {"cx": emu(w), "cy": emu(h)})
+    geom = ET.SubElement(sp_pr, qn("a", "prstGeom"), {"prst": "rect"})
+    ET.SubElement(geom, qn("a", "avLst"))
+    no_fill(sp_pr)
+    ET.SubElement(ET.SubElement(sp_pr, qn("a", "ln")), qn("a", "noFill"))
+    tx = ET.SubElement(shape, qn("p", "txBody"))
+    ET.SubElement(tx, qn("a", "bodyPr"), {"lIns": "0", "rIns": "0", "tIns": "0", "bIns": "0"})
+    ET.SubElement(tx, qn("a", "lstStyle"))
+    for para in paragraphs:
+        p = ET.SubElement(tx, qn("a", "p"))
+        ET.SubElement(p, qn("a", "pPr"), {"algn": {"l": "l", "c": "ctr", "r": "r"}[align]})
+        r = ET.SubElement(p, qn("a", "r"))
+        attrs = {"lang": "zh-CN", "sz": str(size_pt * 100)}
+        if bold:
+            attrs["b"] = "1"
+        r_pr = ET.SubElement(r, qn("a", "rPr"), attrs)
+        solid_fill(r_pr, color)
+        for tag in ("latin", "ea", "cs"):
+            ET.SubElement(r_pr, qn("a", tag), {"typeface": font})
+        ET.SubElement(r, qn("a", "t")).text = para
+        end = ET.SubElement(p, qn("a", "endParaRPr"), {"lang": "zh-CN", "sz": str(size_pt * 100)})
+        for tag in ("latin", "ea", "cs"):
+            ET.SubElement(end, qn("a", tag), {"typeface": font})
+    sp_tree.append(shape)
+
+
+def add_line(sp_tree: ET.Element, shape_id: int, x: float, y: float, w: float, h: float, color: str = "2A9D8F") -> None:
+    add_shape(sp_tree, shape_id, "rect", x, y, w, h, line=color, line_alpha=0, fill=color, fill_alpha=70000, width=0)
+
+
+def add_desmid_icon(sp_tree: ET.Element, sid: int, cx: float, cy: float, scale: float = 1.0) -> int:
+    add_shape(sp_tree, sid, "ellipse", cx - 0.62 * scale, cy - 0.35 * scale, 0.9 * scale, 0.7 * scale, PALETTE["teal"], 42000, None, width=13000)
+    sid += 1
+    add_shape(sp_tree, sid, "ellipse", cx - 0.03 * scale, cy - 0.35 * scale, 0.9 * scale, 0.7 * scale, PALETTE["teal"], 42000, None, width=13000)
+    sid += 1
+    add_shape(sp_tree, sid, "rect", cx - 0.06 * scale, cy - 0.38 * scale, 0.12 * scale, 0.76 * scale, PALETTE["aqua"], 50000, PALETTE["aqua"], 26000, width=8000)
+    sid += 1
+    add_shape(sp_tree, sid, "ellipse", cx - 0.22 * scale, cy - 0.16 * scale, 0.18 * scale, 0.18 * scale, PALETTE["teal2"], 36000, None, width=9000)
+    sid += 1
+    add_shape(sp_tree, sid, "ellipse", cx + 0.22 * scale, cy - 0.02 * scale, 0.16 * scale, 0.16 * scale, PALETTE["teal2"], 32000, None, width=9000)
+    sid += 1
+    return sid
+
+
+def add_desmid_watermark(sp_tree: ET.Element, sid: int, cx: float, cy: float, scale: float = 1.0) -> int:
+    add_shape(sp_tree, sid, "ellipse", cx - 0.75 * scale, cy - 0.38 * scale, 1.05 * scale, 0.76 * scale, PALETTE["teal"], 15000, None, width=9000)
+    sid += 1
+    add_shape(sp_tree, sid, "ellipse", cx - 0.30 * scale, cy - 0.38 * scale, 1.05 * scale, 0.76 * scale, PALETTE["teal"], 15000, None, width=9000)
+    sid += 1
+    add_shape(sp_tree, sid, "rect", cx - 0.05 * scale, cy - 0.44 * scale, 0.10 * scale, 0.88 * scale, PALETTE["aqua"], 13000, PALETTE["aqua"], 9000, width=5000)
+    sid += 1
+    for dx, dy in [(-0.33, -0.08), (0.32, 0.08), (-0.08, 0.22), (0.12, -0.24)]:
+        add_shape(sp_tree, sid, "ellipse", cx + dx * scale, cy + dy * scale, 0.12 * scale, 0.12 * scale, PALETTE["teal2"], 12000, None, width=5000)
+        sid += 1
+    return sid
+
+
+def add_mini_points(sp_tree: ET.Element, sid: int, x: float, y: float, count: int = 5) -> int:
+    for i in range(count):
+        add_shape(sp_tree, sid, "ellipse", x + i * 0.22, y + (i % 2) * 0.1, 0.06, 0.06, PALETTE["teal2"], 70000, PALETTE["teal2"], 72000, width=4000)
+        sid += 1
+    return sid
+
+
+def add_species_card_details(sp_tree: ET.Element, sid: int, font: str) -> int:
+    cards = [
+        (0.82, "细长弯月形", "端部渐尖，轮廓清晰"),
+        (5.60, "中央缢缩明显", "半细胞近圆，对称性强"),
+        (10.36, "星状裂片结构", "边缘突起，需复核形态"),
+        (15.13, "凹顶与侧缘", "观察顶端凹陷和纹饰"),
+    ]
+    for x, title, body in cards:
+        sid = add_desmid_icon(sp_tree, sid, x + 2.0, 3.7, 1.15)
+        add_text(sp_tree, sid, [title], x + 0.42, 4.86, 2.35, 0.26, font, PALETTE["deep"], 9, True)
+        sid += 1
+        add_text(sp_tree, sid, [body], x + 0.42, 5.28, 2.86, 0.24, font, PALETTE["deep2"], 8, False)
+        sid += 1
+        add_line(sp_tree, sid, x + 0.42, 5.72, 1.18, 0.035, PALETTE["teal2"])
+        sid += 1
+        sid = add_desmid_watermark(sp_tree, sid, x + 2.04, 7.42, 1.55)
+    return sid
+
+
+def add_scenario_details(sp_tree: ET.Element, sid: int, font: str) -> int:
+    details = [
+        (0.90, ["适合高频样本初筛", "支持长期点位归档"]),
+        (5.40, ["降低课堂识别门槛", "辅助形态观察讲解"]),
+        (9.90, ["统一图片与复核状态", "便于检索和导出"]),
+        (14.40, ["沉淀区域分布线索", "服务生态趋势分析"]),
+    ]
+    for x, lines in details:
+        sid = add_desmid_icon(sp_tree, sid, x + 2.0, 3.65, 0.95)
+        add_text(sp_tree, sid, [f"· {lines[0]}", f"· {lines[1]}"], x + 0.46, 4.58, 2.76, 0.58, font, PALETTE["deep2"], 8, False)
+        sid += 1
+        sid = add_mini_points(sp_tree, sid, x + 0.46, 5.54, 5)
+        sid = add_desmid_watermark(sp_tree, sid, x + 2.02, 7.34, 1.35)
+    return sid
+
+
+def add_plan_details(sp_tree: ET.Element, sid: int, font: str) -> int:
+    columns = [
+        (0.86, "交付重点", ["权重接入", "复核体验", "报告稳定"]),
+        (7.05, "能力扩展", ["真实图库", "分布同步", "生态维度"]),
+        (13.25, "长期沉淀", ["水质指标", "模型迭代", "分析底座"]),
+    ]
+    for x, title, items in columns:
+        add_text(sp_tree, sid, [title], x + 0.35, 4.28, 1.65, 0.24, font, PALETTE["deep"], 9, True)
+        sid += 1
+        y = 4.88
+        for i, item in enumerate(items):
+            add_shape(sp_tree, sid, "ellipse", x + 0.38, y + i * 0.45, 0.08, 0.08, PALETTE["teal2"], 80000, PALETTE["teal2"], 80000, width=4000)
+            sid += 1
+            add_text(sp_tree, sid, [item], x + 0.58, y - 0.04 + i * 0.45, 1.75, 0.20, font, PALETTE["deep2"], 8, False)
+            sid += 1
+        add_line(sp_tree, sid, x + 0.36, 6.42, 2.45, 0.035, PALETTE["teal2"])
+        sid += 1
+        sid = add_desmid_watermark(sp_tree, sid, x + 3.18, 7.72, 1.55)
+    return sid
+
+
+def add_detection_canvas_details(sp_tree: ET.Element, sid: int) -> int:
+    # Fine grid inside the large detection canvas, no panels.
+    for i in range(7):
+        add_shape(sp_tree, sid, "rect", 2.35 + i * 0.82, 2.75, 0.01, 5.05, PALETTE["line"], 25000, PALETTE["line"], 20000, width=3000)
+        sid += 1
+    for i in range(5):
+        add_shape(sp_tree, sid, "rect", 1.70, 3.05 + i * 0.86, 8.05, 0.01, PALETTE["line"], 25000, PALETTE["line"], 20000, width=3000)
+        sid += 1
+    sid = add_desmid_icon(sp_tree, sid, 4.05, 4.25, 1.0)
+    sid = add_desmid_icon(sp_tree, sid, 7.40, 5.75, 0.85)
+    return sid
+
+
+def add_map_details(sp_tree: ET.Element, sid: int, font: str) -> int:
+    points = [(5.7, 5.1), (7.2, 4.35), (8.6, 5.85), (6.5, 6.4), (9.25, 4.85)]
+    for x, y in points:
+        add_shape(sp_tree, sid, "ellipse", x, y, 0.12, 0.12, PALETTE["teal"], 80000, PALETTE["teal"], 80000, width=4000)
+        sid += 1
+        add_shape(sp_tree, sid, "ellipse", x - 0.08, y - 0.08, 0.28, 0.28, PALETTE["teal"], 25000, None, width=7000)
+        sid += 1
+    add_text(sp_tree, sid, ["点位密度用于辅助判断分布趋势，公开数据仅作宏观参考"], 4.25, 7.58, 5.55, 0.24, font, PALETTE["deep2"], 8, False)
+    sid += 1
+    return sid
+
+
+HUMAN_NOTES: dict[int, tuple[str, list[str]]] = {
+    1: ("答辩抓手", ["从识别工具讲到数据资产", "先演示闭环，再讲模型"]),
+    2: ("阅读方式", ["五段主线不要平均讲", "功能展示页承担可信度"]),
+    3: ("背景判断", ["鼓藻既是识别对象", "也是水生态数据入口"]),
+    4: ("痛点收束", ["难、慢、散、弱、浅", "对应后文五类能力"]),
+    5: ("目标口径", ["识别不是终点", "复核与归档才形成闭环"]),
+    6: ("架构讲法", ["前端承载科研工作台", "后端串联模型和数据"]),
+    7: ("层级关系", ["交互层给入口", "服务层保证可扩展"]),
+    8: ("数据流重点", ["每一步都留下元数据", "报告和图谱来自同一记录"]),
+    9: ("演示入口", ["首页先看状态和指标", "再进入检测与记录"]),
+    10: ("复核逻辑", ["低置信度不是错误", "它是人工复核入口"]),
+    11: ("批量价值", ["批量页体现通量", "统计页体现稳定性"]),
+    12: ("报告价值", ["结果要能导出", "也要保留复核边界"]),
+    13: ("档案作用", ["物种页用于解释模型结果", "也服务教学和人工复核"]),
+    14: ("图谱边界", ["公开点位只做宏观参考", "本地采样才是项目资产"]),
+    15: ("技术可信", ["真实权重与演示回退并存", "让答辩现场更稳"]),
+    16: ("创新落点", ["不是单点功能堆叠", "而是科研工作流升级"]),
+    17: ("应用对象", ["监测、教学、归档、分析", "四类人群各有价值"]),
+    18: ("收束表达", ["近期讲可落地", "长期讲生态智能底座"]),
+}
+
+
+NOTE_POS: dict[int, tuple[float, float, float]] = {
+    2: (1.05, 8.50, 4.65),
+    3: (14.45, 8.10, 4.25),
+    4: (14.10, 1.72, 4.55),
+    6: (15.00, 8.45, 4.05),
+    7: (13.55, 8.70, 4.65),
+    8: (13.00, 8.55, 5.15),
+    9: (14.05, 1.60, 4.75),
+    11: (14.22, 8.40, 4.55),
+    12: (13.72, 8.60, 4.85),
+    14: (0.95, 8.72, 5.05),
+    15: (14.15, 1.55, 4.55),
+    16: (14.25, 8.28, 4.80),
+}
+
+
+STACK_POS: dict[int, tuple[float, float, float]] = {
+    1: (13.15, 7.10, 4.70),
+    5: (13.80, 2.35, 4.60),
+    10: (14.35, 7.55, 4.35),
+    18: (13.55, 6.95, 4.45),
+}
+
+
+def add_glass_card(
+    sp_tree: ET.Element,
+    sid: int,
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    accent: str = "teal",
+    fill_alpha: int = 52000,
+) -> int:
+    add_shape(sp_tree, sid, "roundRect", x + 0.08, y + 0.10, w, h, PALETTE["deep"], 12000, PALETTE["deep"], 7000, width=5000)
+    sid += 1
+    add_shape(sp_tree, sid, "roundRect", x, y, w, h, PALETTE["line"], 52000, PALETTE["cream"], fill_alpha, width=8000)
+    sid += 1
+    add_line(sp_tree, sid, x + 0.18, y + 0.18, 0.07, h - 0.36, PALETTE[accent])
+    sid += 1
+    return sid
+
+
+def add_stack_cards(sp_tree: ET.Element, sid: int, slide_idx: int, font: str) -> int:
+    title, lines = HUMAN_NOTES[slide_idx]
+    x, y, w = STACK_POS[slide_idx]
+    h = 1.32
+    add_shape(sp_tree, sid, "roundRect", x + 0.28, y + 0.22, w - 0.12, h, PALETTE["amber"], 26000, PALETTE["sage"], 26000, width=5000)
+    sid += 1
+    add_shape(sp_tree, sid, "roundRect", x + 0.14, y + 0.11, w - 0.04, h, PALETTE["teal2"], 30000, PALETTE["mist"], 36000, width=5000)
+    sid += 1
+    sid = add_glass_card(sp_tree, sid, x, y, w, h, "teal2", 60000)
+    add_text(sp_tree, sid, [title], x + 0.42, y + 0.24, w - 0.70, 0.24, font, PALETTE["deep"], 9, True)
+    sid += 1
+    add_text(sp_tree, sid, [f"· {lines[0]}", f"· {lines[1]}"], x + 0.42, y + 0.64, w - 0.72, 0.46, font, PALETTE["deep2"], 8, False)
+    sid += 1
+    return sid
+
+
+def add_thread_note(sp_tree: ET.Element, sid: int, slide_idx: int, font: str) -> int:
+    if slide_idx not in NOTE_POS:
+        return sid
+    title, lines = HUMAN_NOTES[slide_idx]
+    x, y, w = NOTE_POS[slide_idx]
+    add_line(sp_tree, sid, x, y + 0.04, 0.055, 0.72, PALETTE["amber"])
+    sid += 1
+    add_text(sp_tree, sid, [title], x + 0.18, y, w - 0.22, 0.22, font, PALETTE["deep"], 9, True)
+    sid += 1
+    add_text(sp_tree, sid, [f"- {lines[0]}", f"- {lines[1]}"], x + 0.18, y + 0.34, w - 0.22, 0.46, font, PALETTE["deep2"], 8, False)
+    sid += 1
+    add_line(sp_tree, sid, x + 0.18, y + 0.84, min(1.75, w - 0.4), 0.026, PALETTE["teal2"])
+    sid += 1
+    return sid
+
+
+def add_corner_rhythm(sp_tree: ET.Element, sid: int, slide_idx: int, font: str) -> int:
+    # Tiny hand-placed marks: enough to break template repetition, not enough to distract.
+    side = slide_idx % 3
+    base_x = [0.86, 17.35, 15.85][side]
+    base_y = [1.28, 9.62, 1.20][side]
+    for i in range(4):
+        add_shape(sp_tree, sid, "ellipse", base_x + i * 0.18, base_y + (i % 2) * 0.08, 0.055, 0.055, PALETTE["teal2"], 76000, PALETTE["teal2"], 70000, width=3500)
+        sid += 1
+    if slide_idx not in {1, 2}:
+        add_text(sp_tree, sid, [f"NOTE {slide_idx:02d}"], base_x + 0.02, base_y + 0.24, 0.82, 0.08, font, PALETTE["teal"], 5, True)
+        sid += 1
+    return sid
+
+
+def add_human_details(sp_tree: ET.Element, slide_idx: int, font: str) -> None:
+    sid = next_shape_id(sp_tree)
+    sid = add_corner_rhythm(sp_tree, sid, slide_idx, font)
+    if slide_idx in STACK_POS:
+        sid = add_stack_cards(sp_tree, sid, slide_idx, font)
+    else:
+        sid = add_thread_note(sp_tree, sid, slide_idx, font)
+
+    if slide_idx == 13:
+        sid = add_species_card_details(sp_tree, sid, font)
+        add_thread_note(sp_tree, sid, slide_idx, font)
+    elif slide_idx == 17:
+        sid = add_scenario_details(sp_tree, sid, font)
+        add_thread_note(sp_tree, sid, slide_idx, font)
+    elif slide_idx == 18:
+        add_plan_details(sp_tree, sid, font)
+    elif slide_idx == 10:
+        add_detection_canvas_details(sp_tree, sid)
+    elif slide_idx == 14:
+        add_map_details(sp_tree, sid, font)
+
+
+def apply_fonts(slide_root: ET.Element, font_face: str) -> None:
+    for tag in ("rPr", "defRPr", "endParaRPr"):
+        for r_pr in slide_root.findall(f".//a:{tag}", NS):
+            for child_tag in ("latin", "ea", "cs"):
+                child = r_pr.find(f"a:{child_tag}", NS)
+                if child is None:
+                    child = ET.SubElement(r_pr, qn("a", child_tag))
+                child.set("typeface", font_face)
+
+
+def apply_project_text_polish(slide_root: ET.Element) -> None:
+    replacements = {
+        "TEAM": "PROJECT",
+        "SCHOOL": "STACK",
+        "ADVISOR": "FOCUS",
+        "鼓藻鉴析项目组 · 张三 / 李四 / 王五": "鼓藻鉴析 · 智能识别平台",
+        "XX 大学 · XX 学院": "YOLO11 + Flask",
+        "指导老师：XXX": "识别闭环",
+    }
+    for text_node in slide_root.findall(".//a:t", NS):
+        if text_node.text in replacements:
+            text_node.text = replacements[text_node.text]
+
+
+def ensure_png_content_type(root: ET.Element) -> None:
+    ct_ns = "http://schemas.openxmlformats.org/package/2006/content-types"
+    default_tag = f"{{{ct_ns}}}Default"
+    for child in root.findall(default_tag):
+        if child.attrib.get("Extension", "").lower() == "png":
+            return
+    ET.SubElement(root, default_tag, {"Extension": "png", "ContentType": "image/png"})
+
+
+def slide_background_key(idx: int) -> str:
+    if idx == 1:
+        return "cover"
+    if idx in {2, 3, 5, 17, 18}:
+        return "section"
+    if idx in {6, 7, 8, 9, 11, 12, 14, 15, 16}:
+        return "data"
+    return "content"
+
+
+def overlay_for_key(key: str) -> tuple[str, int]:
+    if key == "cover":
+        return PALETTE["deep"], 9000
+    if key == "data":
+        return PALETTE["white"], 10000
+    if key == "section":
+        return PALETTE["white"], 8000
+    return PALETTE["white"], 9500
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--assets-dir", required=True)
+    parser.add_argument("--font-face", default="Microsoft YaHei UI")
+    parser.add_argument("--overwrite", action="store_true")
+    args = parser.parse_args()
+
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+    assets_dir = Path(args.assets_dir)
+    if output_path.exists() and not args.overwrite:
+        raise FileExistsError(f"Output exists: {output_path}")
+
+    imagegen_bg = assets_dir / "imagegen-human-research-bg.png"
+    bg_files = {
+        "cover": imagegen_bg,
+        "section": imagegen_bg,
+        "content": imagegen_bg,
+        "data": imagegen_bg,
+    }
+    missing = [str(p) for p in bg_files.values() if not p.exists()]
+    if missing:
+        raise FileNotFoundError("Missing background assets: " + ", ".join(missing))
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp) / "work.pptx"
+        shutil.copyfile(input_path, tmp_path)
+        with zipfile.ZipFile(tmp_path, "r") as zin:
+            names = zin.namelist()
+            payload = {name: zin.read(name) for name in names}
+
+        slide_w, slide_h = read_slide_size(payload)
+        slide_names = sorted(
+            [name for name in names if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)],
+            key=lambda name: int(re.search(r"slide(\d+)\.xml", name).group(1)),
+        )
+        media_targets = {
+            "cover": "ppt/media/codex_v5_imagegen_bg_cover.png",
+            "section": "ppt/media/codex_v5_imagegen_bg_section.png",
+            "content": "ppt/media/codex_v5_imagegen_bg_content.png",
+            "data": "ppt/media/codex_v5_imagegen_bg_data.png",
+        }
+
+        with zipfile.ZipFile(output_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zout:
+            for name in names:
+                if name.startswith("ppt/slides/slide") and name.endswith(".xml"):
+                    continue
+                if name.startswith("ppt/slides/_rels/slide") and name.endswith(".xml.rels"):
+                    continue
+                if name.startswith("ppt/media/codex_"):
+                    continue
+                if name == "[Content_Types].xml":
+                    root = ET.fromstring(payload[name])
+                    ensure_png_content_type(root)
+                    write_xml(zout, name, root)
+                    continue
+                zout.writestr(name, payload[name])
+
+            for key, target in media_targets.items():
+                zout.writestr(target, bg_files[key].read_bytes())
+
+            for idx, slide_name in enumerate(slide_names, 1):
+                slide_root = ET.fromstring(payload[slide_name])
+                apply_fonts(slide_root, args.font_face)
+                if idx == 1:
+                    apply_project_text_polish(slide_root)
+
+                rels_name = f"ppt/slides/_rels/slide{idx}.xml.rels"
+                rels_root = ET.fromstring(payload[rels_name]) if rels_name in payload else ET.Element(qn("rel", "Relationships"))
+                key = slide_background_key(idx)
+                rid = next_rid(rels_root)
+                ET.SubElement(
+                    rels_root,
+                    qn("rel", "Relationship"),
+                    {"Id": rid, "Type": IMAGE_REL_TYPE, "Target": "../media/" + Path(media_targets[key]).name},
+                )
+
+                sp_tree = slide_root.find(".//p:cSld/p:spTree", NS)
+                if sp_tree is not None:
+                    remove_generated_layers(sp_tree, slide_w, slide_h)
+                    shape_id = next_shape_id(sp_tree)
+                    bg_pic = make_background_pic(rid, shape_id, slide_w, slide_h)
+                    wash_color, wash_alpha = overlay_for_key(key)
+                    wash = make_overlay(shape_id + 1, slide_w, slide_h, wash_color, wash_alpha)
+                    insert_at = 2 if len(sp_tree) >= 2 else 0
+                    sp_tree.insert(insert_at, wash)
+                    sp_tree.insert(insert_at, bg_pic)
+                    add_human_details(sp_tree, idx, args.font_face)
+
+                write_xml(zout, slide_name, slide_root)
+                write_xml(zout, rels_name, rels_root)
+
+    print(f"Wrote human-rich imagegen PPTX: {output_path}")
+
+
+if __name__ == "__main__":
+    main()

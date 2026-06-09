@@ -1,0 +1,299 @@
+{
+  "input": "C:\\Users\\\u5b59\u9e4f\u6dc7\\Desktop\\guzaoshibie\\\u9f13\u85fb\u9274\u6790-\u6c34\u751f\u6001\u667a\u80fd\u8bc6\u522b\u4e0e\u9274\u6790\u5e73\u53f0.pptx",
+  "style_preset": "midnight-neon",
+  "renderer_detected": "pptxgenjs",
+  "summary": {
+    "slide_count": 17,
+    "violation_count": 10,
+    "error_count": 0,
+    "warning_count": 10,
+    "density_score_by_slide": [
+      {
+        "slide_index": 0,
+        "density_score": 0.6004
+      },
+      {
+        "slide_index": 1,
+        "density_score": 0.7771
+      },
+      {
+        "slide_index": 2,
+        "density_score": 0.714
+      },
+      {
+        "slide_index": 3,
+        "density_score": 0.7771
+      },
+      {
+        "slide_index": 4,
+        "density_score": 0.8506
+      },
+      {
+        "slide_index": 5,
+        "density_score": 0.8369
+      },
+      {
+        "slide_index": 6,
+        "density_score": 1.0
+      },
+      {
+        "slide_index": 7,
+        "density_score": 0.905
+      },
+      {
+        "slide_index": 8,
+        "density_score": 0.5581
+      },
+      {
+        "slide_index": 9,
+        "density_score": 0.8506
+      },
+      {
+        "slide_index": 10,
+        "density_score": 0.8213
+      },
+      {
+        "slide_index": 11,
+        "density_score": 0.8506
+      },
+      {
+        "slide_index": 12,
+        "density_score": 0.5581
+      },
+      {
+        "slide_index": 13,
+        "density_score": 0.9492
+      },
+      {
+        "slide_index": 14,
+        "density_score": 0.3262
+      },
+      {
+        "slide_index": 15,
+        "density_score": 0.7355
+      },
+      {
+        "slide_index": 16,
+        "density_score": 0.5068
+      }
+    ]
+  },
+  "slides": [
+    {
+      "slide_index": 0,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.6004,
+      "empty_ratio": 0.3996
+    },
+    {
+      "slide_index": 1,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.7771,
+      "empty_ratio": 0.2229
+    },
+    {
+      "slide_index": 2,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.714,
+      "empty_ratio": 0.286
+    },
+    {
+      "slide_index": 3,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.7771,
+      "empty_ratio": 0.2229
+    },
+    {
+      "slide_index": 4,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "margin_bottom",
+          "shape_ids": [
+            "shape-4"
+          ],
+          "severity": "warning",
+          "delta_inches": 0.12,
+          "suggested_fix": "Raise card or reduce height to preserve footer breathing room."
+        },
+        {
+          "type": "density_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.0106,
+          "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+          "slide_type": "content",
+          "visual_density_score": 0.8506
+        }
+      ],
+      "density_score": 0.8506,
+      "empty_ratio": 0.1494
+    },
+    {
+      "slide_index": 5,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.8369,
+      "empty_ratio": 0.1631
+    },
+    {
+      "slide_index": 6,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "density_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.16,
+          "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+          "slide_type": "content",
+          "visual_density_score": 1.0
+        }
+      ],
+      "density_score": 1.0,
+      "empty_ratio": 0.0
+    },
+    {
+      "slide_index": 7,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "density_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.065,
+          "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+          "slide_type": "content",
+          "visual_density_score": 0.905
+        }
+      ],
+      "density_score": 0.905,
+      "empty_ratio": 0.095
+    },
+    {
+      "slide_index": 8,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.5581,
+      "empty_ratio": 0.4419
+    },
+    {
+      "slide_index": 9,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "margin_bottom",
+          "shape_ids": [
+            "shape-4"
+          ],
+          "severity": "warning",
+          "delta_inches": 0.12,
+          "suggested_fix": "Raise card or reduce height to preserve footer breathing room."
+        },
+        {
+          "type": "density_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.0106,
+          "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+          "slide_type": "content",
+          "visual_density_score": 0.8506
+        }
+      ],
+      "density_score": 0.8506,
+      "empty_ratio": 0.1494
+    },
+    {
+      "slide_index": 10,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.8213,
+      "empty_ratio": 0.1787
+    },
+    {
+      "slide_index": 11,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "margin_bottom",
+          "shape_ids": [
+            "shape-4"
+          ],
+          "severity": "warning",
+          "delta_inches": 0.12,
+          "suggested_fix": "Raise card or reduce height to preserve footer breathing room."
+        },
+        {
+          "type": "density_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.0106,
+          "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+          "slide_type": "content",
+          "visual_density_score": 0.8506
+        }
+      ],
+      "density_score": 0.8506,
+      "empty_ratio": 0.1494
+    },
+    {
+      "slide_index": 12,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.5581,
+      "empty_ratio": 0.4419
+    },
+    {
+      "slide_index": 13,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "density_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.1092,
+          "suggested_fix": "Reduce number/size of blocks or split content across slides.",
+          "slide_type": "content",
+          "visual_density_score": 0.9492
+        }
+      ],
+      "density_score": 0.9492,
+      "empty_ratio": 0.0508
+    },
+    {
+      "slide_index": 14,
+      "slide_type": "content",
+      "violations": [
+        {
+          "type": "empty_ratio_too_high",
+          "shape_ids": [],
+          "severity": "warning",
+          "delta_inches": 0.1138,
+          "suggested_fix": "Increase purposeful visual structure to reduce dead zones.",
+          "slide_type": "content",
+          "effective_max_empty_ratio": 0.56
+        }
+      ],
+      "density_score": 0.3262,
+      "empty_ratio": 0.6738
+    },
+    {
+      "slide_index": 15,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.7355,
+      "empty_ratio": 0.2645
+    },
+    {
+      "slide_index": 16,
+      "slide_type": "content",
+      "violations": [],
+      "density_score": 0.5068,
+      "empty_ratio": 0.4932
+    }
+  ]
+}
