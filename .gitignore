@@ -3,6 +3,7 @@ backend/.env
 backend/.env.*
 .env
 .env.*
+!frontend/.env.production
 backend/uploads/*
 !backend/uploads/.gitkeep
 backend/models/*.pt

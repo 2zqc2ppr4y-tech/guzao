@@ -4,8 +4,10 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url))
+const apiProxyTarget = process.env.VITE_API_BASE_URL?.trim()
 
 export default defineConfig({
+  base: '/',
   plugins: [react({ fastRefresh: false })],
   resolve: {
     dedupe: ['react', 'react-dom'],
@@ -15,17 +17,21 @@ export default defineConfig({
     }
   },
   server: {
-    host: '127.0.0.1',
+    host: '0.0.0.0',
     port: 5173,
-    proxy: {
-      '/api': {
-        target: process.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000',
-        changeOrigin: true
-      },
-      '/uploads': {
-        target: process.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000',
-        changeOrigin: true
-      }
-    }
+    ...(apiProxyTarget
+      ? {
+          proxy: {
+            '/api': {
+              target: apiProxyTarget,
+              changeOrigin: true
+            },
+            '/uploads': {
+              target: apiProxyTarget,
+              changeOrigin: true
+            }
+          }
+        }
+      : {})
   }
 })

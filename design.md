@@ -63,3 +63,10 @@
 - 不新增大型依赖；继续使用 React、Vite、Tailwind、lucide-react 和现有组件。
 - 样式集中在 `frontend/src/styles.css`；页面层只补充必要结构和业务内容。
 - 保留现有 API 调用：`/api/detect`、`/api/batch`、`/api/history`、`/api/stats`、`/api/distribution/*`、报告导出等。
+
+## 移动端部署约束
+
+- Vite 生产构建使用根路径 `base: '/'`，静态图像继续从 `src/assets` import，由 Vite 打包为 hashed assets；禁止使用本机绝对路径或 `/frontend/` 路径。
+- 移动端最终样式层放在 `frontend/src/styles.css` 末尾，负责 375px、390px、430px 下的防横向溢出、单列布局、表格横向滚动、移动端导航和弹窗高度约束。
+- API 地址只从 `VITE_API_BASE_URL` 读取；未配置公网后端时，页面进入离线服务状态并在上传、识别、AI 分析、报告导出等动作中给出友好提示。
+- Vercel 使用 `frontend/vercel.json` 将所有前端路由 rewrite 到 `index.html`，保证二级页面刷新不会 404。

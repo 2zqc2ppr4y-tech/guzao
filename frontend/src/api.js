@@ -1,17 +1,22 @@
 import { authHeaders, clearAuth } from './auth'
 
-const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000'
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL || ''
 
 export const API_BASE_URL = rawApiBaseUrl.trim().replace(/\/$/, '')
 
-const BACKEND_OFFLINE_MESSAGE = '后端服务未连接，请先运行 start.bat 或启动 backend/app.py'
+const BACKEND_OFFLINE_MESSAGE = '后端服务暂未连接，请先部署云服务器后端'
+
+function ensureBackendConfigured() {
+  if (!API_BASE_URL) throw new Error(BACKEND_OFFLINE_MESSAGE)
+}
 
 export function apiUrl(path) {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`
-  return `${API_BASE_URL}${normalizedPath}`
+  return API_BASE_URL ? `${API_BASE_URL}${normalizedPath}` : normalizedPath
 }
 
 async function fetchBackend(path, options) {
+  ensureBackendConfigured()
   try {
     return await fetch(apiUrl(path), options)
   } catch {
@@ -187,6 +192,11 @@ export async function addTrainingSample(payload) {
 
 export function predictImage(file, onProgress, options = {}) {
   return new Promise((resolve, reject) => {
+    if (!API_BASE_URL) {
+      reject(new Error(BACKEND_OFFLINE_MESSAGE))
+      return
+    }
+
     const formData = new FormData()
     formData.append('image', file)
     if (options.confidence) formData.append('conf', options.confidence)
@@ -222,6 +232,11 @@ export function predictImage(file, onProgress, options = {}) {
 
 export function runBatchAnalysis(files, onProgress) {
   return new Promise((resolve, reject) => {
+    if (!API_BASE_URL) {
+      reject(new Error(BACKEND_OFFLINE_MESSAGE))
+      return
+    }
+
     const formData = new FormData()
     files.forEach((file) => formData.append('images', file))
 

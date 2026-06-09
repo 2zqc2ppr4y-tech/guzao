@@ -6901,3 +6901,389 @@ body {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Mobile/Vercel stability layer: keep the deployed app usable on 375-430px phones. */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.app-shell,
+.page-shell,
+.top-nav,
+.top-nav-inner,
+.page-intro,
+.page-header,
+.panel,
+.metric-card,
+.home-command,
+.home-visual-card,
+.detection-preview-card,
+.console-card,
+.identify-grid,
+.distribution-layout,
+.species-layout,
+.workbench-grid,
+.analytics-grid,
+.admin-command-strip {
+  min-width: 0;
+}
+
+.table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap table {
+  width: 100%;
+}
+
+.result-figure img,
+.species-card img,
+.species-gallery img,
+.specimen-preview img {
+  max-width: 100%;
+  height: auto;
+}
+
+.upload-zone strong,
+.upload-zone span,
+.candidate-row,
+.explain-item,
+.info-line,
+.recent-report-row,
+.report-field-value,
+.low-card,
+.quick-action-label,
+.quick-action-sub {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  body {
+    min-width: 0;
+  }
+
+  .app-shell {
+    overflow-x: hidden;
+  }
+
+  .top-nav {
+    position: sticky;
+    top: .5rem !important;
+    width: calc(100% - 1rem) !important;
+    margin-inline: .5rem !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+  }
+
+  .top-nav-inner {
+    height: auto !important;
+    min-height: 0 !important;
+    flex-wrap: wrap;
+    align-items: stretch !important;
+    gap: .55rem !important;
+    padding: .6rem !important;
+  }
+
+  .brand-button {
+    flex: 1 1 12rem;
+    min-width: 0 !important;
+    max-width: 100%;
+    padding: .25rem .55rem .25rem .25rem !important;
+  }
+
+  .brand-button > span:last-child {
+    min-width: 0;
+  }
+
+  .brand-button strong,
+  .brand-button small,
+  .backend-chip span,
+  .account-button span {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .account-area {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+    gap: .5rem;
+  }
+
+  .backend-chip,
+  .account-button {
+    width: 100%;
+    min-width: 0 !important;
+    justify-content: center;
+    padding-inline: .6rem !important;
+  }
+
+  .mobile-nav {
+    width: 100%;
+    max-width: 100%;
+    gap: .45rem !important;
+    padding: .55rem .6rem .7rem !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-nav .nav-button {
+    flex: 0 0 auto;
+    min-width: 4.75rem;
+    max-width: 9rem;
+    padding-inline: .65rem !important;
+  }
+
+  .page-shell {
+    width: calc(100% - 1rem) !important;
+    padding: 1rem 0 3rem !important;
+  }
+
+  .page-intro,
+  .page-header {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 1rem !important;
+  }
+
+  .page-intro-actions,
+  .home-command-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100%;
+    gap: .65rem !important;
+  }
+
+  .page-intro-actions > *,
+  .home-command-actions > *,
+  .primary-button,
+  .secondary-button {
+    max-width: 100%;
+  }
+
+  .home-command {
+    min-height: 0 !important;
+    grid-template-columns: 1fr !important;
+    padding: 1rem !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+  }
+
+  .home-command h1 {
+    font-size: clamp(2.15rem, 13vw, 3rem) !important;
+    overflow-wrap: anywhere;
+  }
+
+  .home-command h2 {
+    font-size: 1.05rem !important;
+  }
+
+  .home-command p {
+    font-size: .92rem !important;
+  }
+
+  .hero-capability-tags,
+  .home-visual-strip,
+  .home-command-status {
+    max-width: 100%;
+  }
+
+  .home-visual-card,
+  .detection-preview-card,
+  .console-card,
+  .training-log-panel {
+    width: 100%;
+  }
+
+  .feature-card-grid,
+  .advantage-grid,
+  .home-tech-grid,
+  .identify-grid,
+  .analytics-grid,
+  .admin-stat-grid,
+  .admin-command-strip,
+  .workbench-grid,
+  .distribution-layout,
+  .species-layout,
+  .result-image-grid,
+  .report-field-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .panel {
+    max-width: 100%;
+    padding: 1rem !important;
+  }
+
+  .mode-switcher,
+  .tabs,
+  .filter-chip-group {
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mode-tab,
+  .tab-button,
+  .filter-chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .upload-zone {
+    min-height: 11rem !important;
+    padding: 1rem !important;
+    text-align: center;
+  }
+
+  .result-figure img,
+  .empty-preview {
+    max-height: 18rem;
+  }
+
+  .info-line {
+    grid-template-columns: 1fr !important;
+    gap: .25rem;
+    align-items: start;
+  }
+
+  .action-btn-group,
+  .recent-report-actions,
+  .report-modal-footer {
+    flex-wrap: wrap;
+  }
+
+  .action-btn,
+  .primary-button,
+  .secondary-button {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .profile-filter-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    align-items: stretch !important;
+  }
+
+  .profile-search-wrap {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .profile-search-wrap input {
+    width: 100% !important;
+  }
+
+  .table-wrap {
+    margin-inline: -.25rem;
+    border-radius: 10px !important;
+  }
+
+  .table-wrap th,
+  .table-wrap td {
+    padding: .7rem .75rem !important;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .distribution-map-shell {
+    min-height: 28rem;
+    height: auto;
+  }
+
+  .distribution-map {
+    height: 24rem !important;
+  }
+
+  .map-layer-control,
+  .map-legend,
+  .map-selection-card {
+    position: static !important;
+    max-width: calc(100% - 1.2rem);
+    margin: .6rem;
+  }
+
+  .auth-backdrop,
+  .detail-modal-backdrop,
+  .report-modal-backdrop {
+    padding: .75rem !important;
+  }
+
+  .auth-dialog,
+  .detail-modal,
+  .report-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: calc(100dvh - 1.5rem) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .page-shell {
+    width: calc(100% - .75rem) !important;
+  }
+
+  .top-nav {
+    width: calc(100% - .75rem) !important;
+    margin-inline: .375rem !important;
+  }
+
+  .brand-mark {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
+
+  .brand-button strong {
+    font-size: .92rem !important;
+  }
+
+  .brand-button small,
+  .backend-chip span,
+  .account-button span {
+    font-size: .68rem !important;
+  }
+
+  .home-command,
+  .page-intro,
+  .page-header,
+  .panel {
+    padding: .9rem !important;
+  }
+
+  .home-command h1 {
+    font-size: clamp(2rem, 12vw, 2.55rem) !important;
+  }
+
+  .mobile-nav .nav-button {
+    min-width: 4.35rem;
+    padding-inline: .55rem !important;
+  }
+}
